@@ -1,0 +1,169 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Montserrat:wght@500&family=Raleway&display=swap');
+font-family: 'Montserrat', sans-serif;
+font-family: 'Raleway', sans-serif;
+font-family: 'Mate SC', serif;
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body, html{
+    background-color: white;
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+h1{
+    font-family: 'Mate SC', serif;
+    color: #25261C;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 50px;
+    letter-spacing: 8px;
+    padding: 20px;
+}
+
+h2{
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 3px;
+    text-align: center;
+    width:50%;
+    color: #25261C;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h3{
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 3px;
+    text-align: center;
+    color: #25261C;
+    margin: auto;
+    width: 98%;
+}
+
+p{
+    font-family: 'Montserrat', sans-serif;
+    color: #736B66;
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+nav{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+a{
+    text-decoration: none;
+    text-transform: capitalize;
+    color: #25261C;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul{
+    list-style-type: circle;
+}
+
+li{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    color: #736B66;
+}
+
+header{
+    padding: 40px 40px 0px 40px;
+}
+
+input[type=text], select, textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    font-family: 'Montserrat', sans-serif;
+}
+
+input[type=submit] {
+    background-color: #86cd82;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 40px;
+}
+
+input[type=submit]:hover {
+    background-color: #5ea854;
+}
+
+#container{
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 3px solid #86cd82;
+    position: relative;
+}
+
+.button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    margin: 2px;
+    color: #25261C;
+    padding: 14px;
+    letter-spacing: 1px
+
+}
+
+.button:hover {
+    color: #736B66;
+    text-decoration: underline;
+    text-decoration-color: #56ac55;
+}
+
+.secret {
+    vertical-align: center;
+    text-align: center;
+    display: block;
+}
+
+.drink{
+    height: 200px;
+    padding: 5px;
+
+}
+
+.icon{
+    height: 30px;
+    padding: 20px 0px 0px 0px;
+    position: absolute;
+}
+
+.fr{
+    right: 0;
+}
+*/
+
+.grid {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, 186px);
+}
+
+.grid>* {
+    background-color: green;
+    height: 200px;
+}
