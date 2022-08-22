@@ -4,7 +4,7 @@ $con = mysqli_connect("localhost", "liav", "swifthelp20", "liav_queer");
 if(mysqli_connect_errno()){
     echo "Failed to connect to MySQL:".mysqli_connect_error(); die();}
 else{
-    echo "<p class='connection'>connected to database";
+    echo "connected to database";
 }
 
 /*
@@ -73,40 +73,26 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
 </head>
 <body>
 <header>
-    <!-- logo -->
-<!--    <a href = "index.php"><img class="logo" src= "images/WGC_Logo.png" alt="Wellington Girls College Logo"></a>-->
     <nav>
-        <div class="navbar">
-<!--            <div class="navbar-container fr">-->
-                <!-- nav links -->
-                <a class="button" href="index.php">Home</a>
-                <a class="button" href="movies.php">Movies</a>
-                <a class="button" href="about_us.php">About Us</a>
-
-                <!--SEARCH BAR
-
-                <div class = "boxContainer">
-                    <table class="elementsContainer">
-                        <form action="browse.php" method="post">
-                            <tr>
-                                <td>
-                                    <input type="text" placeholder="Search"
-                                           class="search" name="search">
-                                </td>
-                                <td>
-                                    <button type="submit" name="submit" value="Search">
-                                        <span class="material-icons-outlined">search</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </form>
-                    </table>
-                </div>
-            </div>-->
-
-
-<!--        </div>-->
-
+        <a class="button" href="index.php">Home</a>
+        <a class="button" href="movies.php">Movies</a>
+        <a class="button" href="about_us.php">About Us</a>
+        <!-- search bar -->
+        <table>
+            <form action="search.php" method="post">
+                <tr>
+                    <td>
+                        <input type="text" placeholder="Search"
+                               class="search" name="search">
+                    </td>
+                    <td>
+                        <button type="submit" name="submit" value="Search">
+                            <span class="material-icons-outlined">search</span>
+                        </button>
+                    </td>
+                </tr>
+            </form>
+        </table>
     </nav>
 </header>
 
@@ -114,24 +100,25 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
 <main>
     <div class="main">
 
-            <tr>
             </div>
-<!--            <div class="items-container">-->
+
+            <div class="grid">
                 <?php
                 /*Display Items*/
                 while ($all_movies_record = mysqli_fetch_assoc($all_movies_result)) {
     //                echo "<div class='item-box'>";
-    //                echo '<a href= "item.php?item=' . $all_movies_record['ItemID'] . '">';
-
-                    echo "<img class='item-img' src='images/Rainbow_Flag.png' width='15%'>";
+                    echo '<a href= "movie.php?movie=' . $all_movies_record['movie_id'] . '">';
+                    echo "<div>";
+                    echo "<img class='item-img' src='images/Rainbow_Flag.png' width = '100%'>";
                     echo "<br>";
                     echo $all_movies_record['movie_name'];
                     echo "<br>";
-    //                echo "</a>";
+                    echo "</div>";
+                    echo "</a>";
 
                 }
                 ?>
-<!--            </div>-->
+            </div>
 
 </main>
 <footer>
