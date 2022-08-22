@@ -28,13 +28,28 @@
         <a class="button" href="index.php">Home</a>
         <a class="button" href="movies.php">Movies</a>
         <a class="button" href="about_us.php">About Us</a>
+        <!-- search bar -->
+        <table>
+            <form action="search.php" method="post">
+                <tr>
+                    <td>
+                        <input type="text" placeholder="Search"
+                               class="search" name="search">
+                    </td>
+                    <td>
+                        <button type="submit" name="submit" value="Search">
+                            <span class="material-icons-outlined">search</span>
+                        </button>
+                    </td>
+                </tr>
+            </form>
+        </table>
     </nav>
 </header>
 
 <main>
     <div id="banner">
         <img src="images/Rainbow_Flag.png" alt = "rainbow pride flag" width = 50%>
-        <p> https://upload.wikimedia.org/wikipedia/commons/8/8a/LGBT_Rainbow_Flag.png</p>
     <h1>Queer Movies</h1>
     </div>
     <br>
