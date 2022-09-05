@@ -11,7 +11,6 @@ if(isset($_GET['movie'])){
 }else{
     $id = "1";
 }
-
 $this_movie_query = "SELECT movie.* FROM movie WHERE movie_id = '" . $id ."'";
 $this_movie_result = mysqli_query($con, $this_movie_query);
 $this_movie_record = mysqli_fetch_assoc($this_movie_result);
@@ -19,6 +18,12 @@ $this_movie_record = mysqli_fetch_assoc($this_movie_result);
 $genre_query = "SELECT genre.genre FROM genre, movie, movie_genre WHERE movie.movie_id = '" . $id ."'
                 AND genre.genre_id = movie_genre.genre_id AND movie.movie_id = movie_genre.movie_id";
 $genre_result = mysqli_query($con, $genre_query);
+
+$representation_query = "SELECT representation.representation, representation.flag_file_path FROM 
+                        representation, movie, movie_representation WHERE movie.movie_id = '" .$id ."'
+                        AND representation.representation_id = movie_representation.representation_id 
+                        AND movie.movie_id = movie_representation.movie_id";
+$representation_result = mysqli_query($con, $representation_query);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +67,13 @@ $genre_result = mysqli_query($con, $genre_query);
 
             echo "<img class='item-img' src='images/Rainbow_Flag.png' width = '25%'>";
 
-            echo "<p> Representation: " . $this_movie_record['representation'] . "<br>";
+            echo "<p>"; //  make this the flag
+            while ($representation_record = mysqli_fetch_assoc($representation_result)) {
+                echo $representation_record['representation'];
+                echo " representation";
+            }
+            echo "<br>";
+
             echo "<p>";
             while ($genre_record = mysqli_fetch_assoc($genre_result)) {
                 echo $genre_record['genre'];
