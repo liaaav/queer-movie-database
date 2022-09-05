@@ -1,7 +1,6 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Montserrat:wght@500&family=Raleway&display=swap');
-font-family: 'Montserrat', sans-serif;
-font-family: 'Raleway', sans-serif;
-font-family: 'Mate SC', serif;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Tiro+Gurmukhi&display=swap');
+/*font-family: 'Open Sans', sans-serif;
+font-family: 'Tiro Gurmukhi', serif;*/
 * {
     border: 0;
     margin: 0;
@@ -16,20 +15,16 @@ body, html{
 }
 
 h1{
-    font-family: 'Mate SC', serif;
+    font-family: 'Tiro Gurmukhi', serif;
     color: #25261C;
-    text-align: center;
-    vertical-align: middle;
     font-size: 50px;
     letter-spacing: 8px;
     padding: 20px;
 }
 
 h2{
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     letter-spacing: 3px;
-    text-align: center;
-    width:50%;
     color: #25261C;
     margin: auto;
     padding: 20px;
@@ -37,16 +32,15 @@ h2{
 }
 
 h3{
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     letter-spacing: 3px;
-    text-align: center;
     color: #25261C;
     margin: auto;
     width: 98%;
 }
 
 p{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color: #736B66;
     font-size: 16px;
     margin-bottom: 15px;
@@ -54,7 +48,6 @@ p{
 }
 
 nav{
-    text-align: center;
     margin: 0;
     padding: 0;
 }
@@ -70,20 +63,40 @@ a:hover {
     text-decoration: none;
 }
 
-ul{
-    list-style-type: circle;
+.two-col {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-li{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    color: #736B66;
+.col {
+    position: relative;
+    width: 100%;
+}
+/*banner*/
+
+.col 100vh {
+     height: 100vh;
+        }
+
+.home-hero {
+
 }
 
-header{
-    padding: 40px 40px 0px 40px;
+.home-hero img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
 }
 
+.home-hero text{
+    
+}
+/*
 input[type=text], select, textarea {
     padding: 12px;
     border: 1px solid #ccc;
@@ -92,8 +105,9 @@ input[type=text], select, textarea {
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
+
 
 input[type=submit] {
     background-color: #86cd82;
@@ -109,53 +123,21 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #5ea854;
 }
+*/
 
 #container{
     width:50%;
     margin-left: auto;
     margin-right: auto;
-    border-top: 3px solid #86cd82;
     position: relative;
 }
 
-.button {
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
-    margin: 2px;
-    color: #25261C;
-    padding: 14px;
-    letter-spacing: 1px
 
-}
-
-.button:hover {
-    color: #736B66;
-    text-decoration: underline;
-    text-decoration-color: #56ac55;
-}
-
-.secret {
-    vertical-align: center;
-    text-align: center;
-    display: block;
-}
-
-.drink{
-    height: 200px;
-    padding: 5px;
-
-}
-
-.icon{
-    height: 30px;
-    padding: 20px 0px 0px 0px;
-    position: absolute;
-}
 
 .fr{
     right: 0;
 }
-*/
+
 
 .grid {
     display: grid;
@@ -164,6 +146,5 @@ input[type=submit]:hover {
 }
 
 .grid>* {
-    background-color: green;
     height: 200px;
 }
