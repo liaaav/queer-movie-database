@@ -6,13 +6,8 @@
         echo "connected to database";
     }
 
-    $all_drinks_query = "SELECT DrinkID, drink FROM drinks";
-    $all_drinks_result = mysqli_query($con, $all_drinks_query);
-    $all_orders_query = "SELECT OrderID FROM orders ORDER BY OrderID ASC";
-    $all_orders_result = mysqli_query($con, $all_orders_query);
-    $all_customers_query = "SELECT CustomerID, FName FROM customers";
-    $all_customers_result = mysqli_query($con, $all_customers_query);
-
+    $all_movie_rec_query = "SELECT movie.movie_name, movie.movie_id FROM movie, movie_rec WHERE movie.movie_id = movie_rec.movie_id";
+    $all_movie_rec_result = mysqli_query($con, $all_movie_rec_query);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +15,7 @@
 <head>
     <title> Queer Movie Database </title>
     <meta charset="utf-8">
-    <link rel='stylesheet' type='text/css' href="">
+    <link rel='stylesheet' type='text/css' href="style.css">
 </head>
 <body>
 <header>
@@ -48,14 +43,34 @@
 </header>
 
 <main>
-    <div id="banner">
-        <img src="images/Rainbow_Flag.png" alt = "rainbow pride flag" width = 50%>
-    <h1>Queer Movies</h1>
+    <div class="home-hero">
+        <div class ="two-col">
+            <div class = "col 100vh">
+                <div class = "home-hero__img">
+                    <img src="images/Rainbow_Flag.png" alt = "rainbow pride flag">
+                </div>
+
+            </div>
+            <div class = "col">
+                <h1>Queer Movies</h1>
+            </div>
+        </div>
     </div>
     <br>
-    <div id="container">
         <h2>Recommended Movies</h2>
-
+    <div class="grid">
+    <?php
+    while ($all_movie_rec_record = mysqli_fetch_assoc($all_movie_rec_result)) {
+        echo '<a href= "movie.php?movie=' . $all_movie_rec_record['movie_id'] . '">';
+        echo "<div>";
+        echo "<img class='item-img' src='images/Rainbow_Flag.png' width = '100%'>";
+        echo "<br>";
+        echo $all_movie_rec_record['movie_name'];
+        echo "<br>";
+        echo "</div>";
+        echo "</a>";
+    }
+    ?>
     </div>
 </main>
 </body>
