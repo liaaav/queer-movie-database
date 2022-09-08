@@ -13,7 +13,8 @@ else{
 <head>
     <title> Queer Movie Database </title>
     <meta charset="utf-8">
-    <link rel='stylesheet' type='text/css' href="">
+    <link rel='stylesheet' type='text/css' href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
 <body>
 <!DOCTYPE html>
@@ -24,53 +25,73 @@ else{
     <link rel='stylesheet' type='text/css' href="style.css">
 </head>
 <body>
-<header>
-    <nav>
-        <div class = "navbar">
-            <div class = "navbar__container">
+<nav>
+    <div class = "navbar">
+        <div class = "navbar__container">
+            <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="button" href="index.php">Home</a>
+                    <a class="menu-link" href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="button" href="movies.php">Movies</a>
+                    <a class="menu-link" href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="button" href="about_us.php">About Us</a>
+                    <a class="menu-link" href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a class="button" href="login.php">Login</a>
+                    <a class="menu-link" href="create_account.php">Create Account</a>
                 </li>
+            </ul>
+            <ul class ="navbar__menu navbar__menu--right">
                 <li>
-                    <a class="button" href="logout.php">Logout</a>
-                </li>
-                <li>
-                    <a class="button" href="create_account.php">Create Account</a>
-                </li>
-                <!-- search bar -->
-                <table>
-                    <form action="search.php" method="post">
-                        <tr>
-                            <td>
-                                <input type="text" placeholder="Search"
-                                       class="search" name="search">
-                            </td>
-                            <td>
-                                <button type="submit" name="submit" value="Search">
-                                    <span class="material-icons-outlined">search</span>
-                                </button>
-                            </td>
-                        </tr>
+                    <!-- search bar -->
+                    <form class="search-box" action="search.php" method="post">
+
+                        <input type="text" class="search__input" placeholder="Search..." name="search">
+
+                        <button class="material-icons-outlined" type="submit" name="submit" value="Search">search</button>
+
                     </form>
-                </table>
-            </div>
+                </li>
+                <li>
+                    <!--                        <div class="user_profile">-->
+                    <a>
+                        <?php
+                        if (isset($_SESSION['username'])){
+                            echo $_SESSION['username'];
+                        }
+                        ?>
+                    </a>
+                    <!--                        </div>-->
+                </li>
+                <?php
+                if ((isset($_SESSION['username']))) {
+                    echo "<li>
+                                    <a class='menu-link' href='logout.php'>Logout</a>
+                                </li>";
+                }
+
+                ?>
+                <?php
+                if ((!isset($_SESSION['username']))) {
+                    echo "<li>
+                        <a class='menu-link' href='login.php'>Login</a>
+                    </li>";
+                }
+                ?>
+
+
+            </ul>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
 
 <main>
+    <div class = "content">
     <img src="images/lgbtq.jpg" alt="hands holding with rainbow colours">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend, erat non iaculis porttitor, arcu ligula gravida orci, vitae semper ipsum quam quis tellus. Cras quis rutrum nunc, non efficitur tortor. Morbi sed nulla vel magna imperdiet cursus eget nec erat. Donec volutpat lectus et efficitur cursus. Nullam bibendum lobortis imperdiet. Suspendisse lacinia lorem nisl, nec porttitor arcu volutpat vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet justo pellentesque dapibus accumsan. Nullam sit amet sem et neque ornare vehicula. Sed vestibulum enim elit, eu fermentum odio lacinia in. Vivamus mollis mauris arcu, imperdiet varius orci tristique in. Praesent tortor massa, tincidunt ut commodo id, viverra ut felis. Ut semper venenatis ultricies.
 
         Ut sapien nibh, eleifend nec hendrerit vel, gravida in risus. Duis dapibus id sem in maximus. Ut sodales feugiat lacus, eu viverra felis facilisis quis. Curabitur dignissim suscipit magna eu condimentum. Ut ornare pretium interdum. Suspendisse tempor tristique felis nec maximus. Sed vitae tristique odio. Duis suscipit, leo vitae venenatis semper, augue lacus venenatis orci, ac faucibus lorem mauris a urna. Fusce sed malesuada erat, quis accumsan lectus. Maecenas id nibh a sem dictum dignissim. Maecenas porttitor non tellus a efficitur. Donec in scelerisque ante. In vel cursus mauris. Vivamus augue nunc, vestibulum sit amet augue ac, malesuada euismod elit. Pellentesque massa libero, molestie sed leo vitae, elementum consectetur velit.</p>
+    </div>
 </main>
 </body>

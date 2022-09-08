@@ -70,7 +70,7 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
     <title> Queer Movie Database </title>
     <meta charset="utf-8">
     <link rel='stylesheet' type='text/css' href="style.css">
-<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
 <body>
 <!DOCTYPE html>
@@ -81,65 +81,74 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
     <link rel='stylesheet' type='text/css' href="style.css">
 </head>
 <body>
-<header>
-    <nav>
-        <div class = "navbar">
-            <div class = "navbar__container">
-                <li>
-                    <a class="button" href="index.php">Home</a>
-                </li>
-                <li>
-                    <a class="button" href="movies.php">Movies</a>
-                </li>
-                <li>
-                    <a class="button" href="about_us.php">About Us</a>
-                </li>
-                <li>
-                    <a class="button" href="login.php">Login</a>
-                </li>
-                <li>
-                    <a class="button" href="logout.php">Logout</a>
-                </li>
-                <li>
-                    <a class="button" href="create_account.php">Create Account</a>
-                </li>
-                <!-- search bar -->
-                <div class="search_bar">
-                    <table>
-                        <form action="search.php" method="post">
-                            <tr>
-                                <td>
-                                    <input type="text" placeholder="Search"
-                                           class="search" name="search">
-                                </td>
-                                <td>
-                                    <button type="submit" name="submit" value="Search">
-                                        <span class="material-icons-outlined">search</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </form>
-                    </table>
-                </div>
 
-                <div class="user_profile">
-                    <li>
+<nav>
+    <div class = "navbar">
+        <div class = "navbar__container">
+            <ul class = "navbar__menu navbar__menu--left">
+                <li>
+                    <a class="menu-link" href="index.php">Home</a>
+                </li>
+                <li>
+                    <a class="menu-link" href="movies.php">Movies</a>
+                </li>
+                <li>
+                    <a class="menu-link" href="about_us.php">About Us</a>
+                </li>
+                <li>
+                    <a class="menu-link" href="create_account.php">Create Account</a>
+                </li>
+            </ul>
+            <ul class ="navbar__menu navbar__menu--right">
+                <li>
+                    <!-- search bar -->
+                    <form class="search-box" action="search.php" method="post">
+
+                        <input type="text" class="search__input" placeholder="Search..." name="search">
+
+                        <button class="material-icons-outlined" type="submit" name="submit" value="Search">search</button>
+
+                    </form>
+                </li>
+                <li>
+                    <!--                        <div class="user_profile">-->
+                    <a>
                         <?php
-                        echo $_SESSION['username'];
+                        if (isset($_SESSION['username'])){
+                            echo $_SESSION['username'];
+                        }
                         ?>
-                    </li>
-                </div>
-            </div>
+                    </a>
+                    <!--                        </div>-->
+                </li>
+                <?php
+                if ((isset($_SESSION['username']))) {
+                    echo "<li>
+                                    <a class='menu-link' href='logout.php'>Logout</a>
+                                </li>";
+                }
+
+                ?>
+                <?php
+                if ((!isset($_SESSION['username']))) {
+                    echo "<li>
+                        <a class='menu-link' href='login.php'>Login</a>
+                    </li>";
+                }
+                ?>
+
+
+            </ul>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
+
 
 
 
 <main>
-    <div class="main">
+    <div class = "content">
 
-            </div>
 
             <div class="grid">
                 <?php
@@ -158,7 +167,7 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
                 }
                 ?>
             </div>
-
+    </div>
 </main>
 <footer>
 

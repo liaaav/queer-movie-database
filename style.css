@@ -7,8 +7,13 @@ font-family: 'Tiro Gurmukhi', serif;*/
     padding: 0;
 }
 
+:root {
+    --bg-color: #F6F3F3;
+    --nav-height: 60px;
+}
+
 body, html{
-    background-color: #F6F3F3;
+    background-color: var(--bg-color);
     margin:0;
     padding:0;
     border:0;
@@ -53,6 +58,15 @@ a{
     color: #25261C;
 }
 
+section {
+    display: block;
+    pointer-events: auto;
+    padding: 0;
+}
+
+.content {
+    padding-top: var(--nav-height);
+}
 
 /*banner*/
 
@@ -65,7 +79,7 @@ a{
 .col {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - var(--nav-height));
 }
 
 .home-hero {
@@ -144,9 +158,8 @@ input[type=submit]:hover {
     width: 100%;
     top: 0;
     left: 0;
-    padding-top: 10px;
     z-index: 9999;
-    background-color: #f6f3f3;
+    background-color: #e3d8d8;
 }
 
 .navbar__container{
@@ -156,6 +169,7 @@ input[type=submit]:hover {
     margin-right: auto;
     position: relative;
     height: 60px;
+
 }
 
 .navbar__menu{
@@ -205,34 +219,32 @@ input[type=submit]:hover {
 
 /*Search bar*/
 
-.boxContainer{
-    display: inline-block;
+.search-box{
+    display: flex;
     position: relative;
-    width: 300px;
-    height: 42px;
-    border: 4px solid #F4F4F4;
-    padding: 0 10px;
-    border-radius: 50px;
-    background: #F4F4F4;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #cbc5d9;
+    align-items: center;
 }
 
-.elementsContainer{
+.search-container{
     width: 100%;
     height: 100%;
-    vertical-align:center;
-    background: #F4F4F4;
+    vertical-align: center;
+    background: #F6F3F3;
 }
 
-.search{
-    border: none;
+.search__input{
     height: 100%;
     width: 100%;
     padding: 0 5px;
-    border-radius:50px;
-    font-size: 18px;
+    border-radius: 5px;
+    font-size: 14px;
     font-family: 'Open Sans', sans-serif;
-    color:#284B63;
+    color:#54506B;
     font-weight:500;
+    background-color: transparent;
 }
 
 .search:focus{
@@ -240,7 +252,9 @@ input[type=submit]:hover {
 }
 
 .material-icons-outlined{
-    width: 25px;
-    color: #0092B4;
+    font-size: 24px;
+    color: #54506B;
     background-color: transparent;
+
 }
+

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /*Connection to database code*/
 $con = mysqli_connect("localhost", "liav", "swifthelp20", "liav_queer");
 if(mysqli_connect_errno()){
@@ -32,7 +33,7 @@ $representation_result = mysqli_query($con, $representation_query);
     <title> Queer Movie Database </title>
     <meta charset="utf-8">
     <link rel='stylesheet' type='text/css' href="style.css">
-    <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
 <body>
 <!DOCTYPE html>
@@ -43,51 +44,70 @@ $representation_result = mysqli_query($con, $representation_query);
     <link rel='stylesheet' type='text/css' href="style.css">
 </head>
 <body>
-<header>
     <nav>
-        <div class = "navbar">
-            <div class = "navbar__container">
+    <div class = "navbar">
+        <div class = "navbar__container">
+            <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="button" href="index.php">Home</a>
+                    <a class="menu-link" href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="button" href="movies.php">Movies</a>
+                    <a class="menu-link" href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="button" href="about_us.php">About Us</a>
+                    <a class="menu-link" href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a class="button" href="login.php">Login</a>
+                    <a class="menu-link" href="create_account.php">Create Account</a>
                 </li>
+            </ul>
+            <ul class ="navbar__menu navbar__menu--right">
                 <li>
-                    <a class="button" href="logout.php">Logout</a>
-                </li>
-                <li>
-                    <a class="button" href="create_account.php">Create Account</a>
-                </li>
-                <!-- search bar -->
-                <table>
-                    <form action="search.php" method="post">
-                        <tr>
-                            <td>
-                                <input type="text" placeholder="Search"
-                                       class="search" name="search">
-                            </td>
-                            <td>
-                                <button type="submit" name="submit" value="Search">
-                                    <span class="material-icons-outlined">search</span>
-                                </button>
-                            </td>
-                        </tr>
+                    <!-- search bar -->
+                    <form class="search-box" action="search.php" method="post">
+
+                        <input type="text" class="search__input" placeholder="Search..." name="search">
+
+                        <button class="material-icons-outlined" type="submit" name="submit" value="Search">search</button>
+
                     </form>
-                </table>
-            </div>
+                </li>
+                <li>
+                    <!--                        <div class="user_profile">-->
+                    <a>
+                        <?php
+                        if (isset($_SESSION['username'])){
+                            echo $_SESSION['username'];
+                        }
+                        ?>
+                    </a>
+                    <!--                        </div>-->
+                </li>
+                <?php
+                if ((isset($_SESSION['username']))) {
+                    echo "<li>
+                                    <a class='menu-link' href='logout.php'>Logout</a>
+                                </li>";
+                }
+
+                ?>
+                <?php
+                if ((!isset($_SESSION['username']))) {
+                    echo "<li>
+                        <a class='menu-link' href='login.php'>Login</a>
+                    </li>";
+                }
+                ?>
+
+
+            </ul>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
 
 
     <main>
+        <div class = "content">
             <br>
             <?php
             echo "<h2>" . $this_movie_record['movie_name'] . "</h2><br>";
@@ -108,10 +128,21 @@ $representation_result = mysqli_query($con, $representation_query);
                 echo ", ";
             }
             ?>
+
+<!--            Review Form -->
+            <?php
+                echo "<form name = 'review_form' method = 'post' action = 'review.php?movie=" . $id . "'>
+                <input type='text' name='review' placeholder='Add a review...' ><br>
+                <input type='submit' name='submit' id='submit' value='submit'>
+            </form>";
+            ?>
+
+<!--            Reviews-->
+            
+        </div>
     </main>
 
-<footer>
-</footer>
+
 </body>
 </html>
 
