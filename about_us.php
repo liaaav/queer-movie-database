@@ -1,4 +1,5 @@
 <?php
+session_start();
 $con = mysqli_connect("localhost", "liav", "swifthelp20", "liav_queer");
 if(mysqli_connect_errno()){
     echo "Failed to connect to MySQL:".mysqli_connect_error(); die();}
@@ -15,29 +16,57 @@ else{
     <link rel='stylesheet' type='text/css' href="">
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Queer Movie Database </title>
+    <meta charset="utf-8">
+    <link rel='stylesheet' type='text/css' href="style.css">
+</head>
+<body>
 <header>
     <nav>
-        <a class="button" href="index.php">Home</a>
-        <a class="button" href="movies.php">Movies</a>
-        <a class="button" href="about_us.php">About Us</a>
-        <!-- search bar -->
-        <table>
-            <form action="search.php" method="post">
-                <tr>
-                    <td>
-                        <input type="text" placeholder="Search"
-                               class="search" name="search">
-                    </td>
-                    <td>
-                        <button type="submit" name="submit" value="Search">
-                            <span class="material-icons-outlined">search</span>
-                        </button>
-                    </td>
-                </tr>
-            </form>
-        </table>
+        <div class = "navbar">
+            <div class = "navbar__container">
+                <li>
+                    <a class="button" href="index.php">Home</a>
+                </li>
+                <li>
+                    <a class="button" href="movies.php">Movies</a>
+                </li>
+                <li>
+                    <a class="button" href="about_us.php">About Us</a>
+                </li>
+                <li>
+                    <a class="button" href="login.php">Login</a>
+                </li>
+                <li>
+                    <a class="button" href="logout.php">Logout</a>
+                </li>
+                <li>
+                    <a class="button" href="create_account.php">Create Account</a>
+                </li>
+                <!-- search bar -->
+                <table>
+                    <form action="search.php" method="post">
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="Search"
+                                       class="search" name="search">
+                            </td>
+                            <td>
+                                <button type="submit" name="submit" value="Search">
+                                    <span class="material-icons-outlined">search</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
+                </table>
+            </div>
+        </div>
     </nav>
 </header>
+
 <main>
     <img src="images/lgbtq.jpg" alt="hands holding with rainbow colours">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend, erat non iaculis porttitor, arcu ligula gravida orci, vitae semper ipsum quam quis tellus. Cras quis rutrum nunc, non efficitur tortor. Morbi sed nulla vel magna imperdiet cursus eget nec erat. Donec volutpat lectus et efficitur cursus. Nullam bibendum lobortis imperdiet. Suspendisse lacinia lorem nisl, nec porttitor arcu volutpat vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet justo pellentesque dapibus accumsan. Nullam sit amet sem et neque ornare vehicula. Sed vestibulum enim elit, eu fermentum odio lacinia in. Vivamus mollis mauris arcu, imperdiet varius orci tristique in. Praesent tortor massa, tincidunt ut commodo id, viverra ut felis. Ut semper venenatis ultricies.

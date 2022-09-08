@@ -64,12 +64,14 @@ $all_customers_result = mysqli_query($con, $all_customers_query);
                 echo "<div class='grid'>";
                 while ($row = mysqli_fetch_array($query)) {
     //                echo "<div class='item-box'>";
+                    echo '<a href= "movie.php?movie=' . $row['movie_id'] . '">';
                     echo "<div>";
                     echo "<img class='item-img' src='images/Rainbow_Flag.png' width = '100%'>";
                     echo "<br>";
                     echo $row['movie_name'];
                     echo "<br>";
                     echo "</div>";
+                    echo "</a>";
                 }
             }
             echo "</div>";

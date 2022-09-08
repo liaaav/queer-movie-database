@@ -35,29 +35,57 @@ $representation_result = mysqli_query($con, $representation_query);
     <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">-->
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Queer Movie Database </title>
+    <meta charset="utf-8">
+    <link rel='stylesheet' type='text/css' href="style.css">
+</head>
+<body>
 <header>
     <nav>
-        <a class="button" href="index.php">Home</a>
-        <a class="button" href="movies.php">Movies</a>
-        <a class="button" href="about_us.php">About Us</a>
-        <!-- search bar -->
-        <table>
-            <form action="search.php" method="post">
-                <tr>
-                    <td>
-                        <input type="text" placeholder="Search"
-                               class="search" name="search">
-                    </td>
-                    <td>
-                        <button type="submit" name="submit" value="Search">
-                            <span class="material-icons-outlined">search</span>
-                        </button>
-                    </td>
-                </tr>
-            </form>
-        </table>
+        <div class = "navbar">
+            <div class = "navbar__container">
+                <li>
+                    <a class="button" href="index.php">Home</a>
+                </li>
+                <li>
+                    <a class="button" href="movies.php">Movies</a>
+                </li>
+                <li>
+                    <a class="button" href="about_us.php">About Us</a>
+                </li>
+                <li>
+                    <a class="button" href="login.php">Login</a>
+                </li>
+                <li>
+                    <a class="button" href="logout.php">Logout</a>
+                </li>
+                <li>
+                    <a class="button" href="create_account.php">Create Account</a>
+                </li>
+                <!-- search bar -->
+                <table>
+                    <form action="search.php" method="post">
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="Search"
+                                       class="search" name="search">
+                            </td>
+                            <td>
+                                <button type="submit" name="submit" value="Search">
+                                    <span class="material-icons-outlined">search</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
+                </table>
+            </div>
+        </div>
     </nav>
 </header>
+
 
     <main>
             <br>
