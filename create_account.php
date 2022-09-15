@@ -21,16 +21,16 @@ else{
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="menu-link" href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="movies.php">Movies</a>
+                    <a href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="about_us.php">About Us</a>
+                    <a href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="create_account.php">Create Account</a>
+                    <a class="current-page" href="create_account.php">Create Account</a>
                 </li>
             </ul>
             <ul class ="navbar__menu navbar__menu--right">
@@ -80,7 +80,7 @@ else{
     <div class = "content">
     <h2> Enter details here </h2>
     <!-- Create Account Form -->
-    <form name = 'account_form' method = 'post' action = 'create_account_process.php'>
+    <form name = 'account_form' method = 'post' action = 'processes/create_account_process.php'>
         <label for="username"> Username: </label>
         <input type="text" name="username"><br>
 

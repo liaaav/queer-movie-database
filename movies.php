@@ -90,7 +90,7 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
                     <a class="menu-link" href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="movies.php">Movies</a>
+                    <a class="current-page" href="movies.php">Movies</a>
                 </li>
                 <li>
                     <a class="menu-link" href="about_us.php">About Us</a>

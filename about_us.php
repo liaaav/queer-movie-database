@@ -30,16 +30,16 @@ else{
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="menu-link" href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="movies.php">Movies</a>
+                    <a href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="about_us.php">About Us</a>
+                    <a class="current-page" href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="create_account.php">Create Account</a>
+                    <a href="create_account.php">Create Account</a>
                 </li>
             </ul>
             <ul class ="navbar__menu navbar__menu--right">

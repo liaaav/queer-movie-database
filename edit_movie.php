@@ -12,13 +12,21 @@ if(isset($_GET['movie'])){
 }else{
     $id = "1";
 }
+if((!isset($_SESSION['admin']))){
+    header("Location: index.php");
+}
 $this_movie_query = "SELECT movie.* FROM movie WHERE movie_id = '" . $id ."'";
 $this_movie_result = mysqli_query($con, $this_movie_query);
 $this_movie_record = mysqli_fetch_assoc($this_movie_result);
 
-$genre_query = "SELECT genre.genre FROM genre, movie, movie_genre WHERE movie.movie_id = '" . $id ."'
+
+$genre_query = "SELECT genre.genre_id FROM genre, movie, movie_genre WHERE movie.movie_id = '" . $id ."'
                 AND genre.genre_id = movie_genre.genre_id AND movie.movie_id = movie_genre.movie_id";
 $genre_result = mysqli_query($con, $genre_query);
+$genre_record = mysqli_fetch_all($genre_result, MYSQLI_NUM);
+
+$all_genre_query = "SELECT * FROM genre";
+$all_genre_result = mysqli_query($con, $all_genre_query);
 
 $representation_query = "SELECT representation.representation, representation.flag_file_path FROM 
                         representation, movie, movie_representation WHERE movie.movie_id = '" .$id ."'
@@ -26,8 +34,8 @@ $representation_query = "SELECT representation.representation, representation.fl
                         AND movie.movie_id = movie_representation.movie_id";
 $representation_result = mysqli_query($con, $representation_query);
 
-$review_query = "SELECT review.*, users.* FROM review, users WHERE movie_id = '" .$id . "' AND users.user_id = review.user_id";
-$review_result = mysqli_query($con, $review_query);
+$all_representation_query = "SELECT * FROM representation";
+$all_representation_result = mysqli_query($con, $all_representation_query);
 ?>
 
 <!DOCTYPE html>
@@ -45,9 +53,10 @@ $review_result = mysqli_query($con, $review_query);
     <title> Queer Movie Database </title>
     <meta charset="utf-8">
     <link rel='stylesheet' type='text/css' href="style.css">
+
 </head>
 <body>
-    <nav>
+<nav>
     <div class = "navbar">
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
@@ -109,62 +118,51 @@ $review_result = mysqli_query($con, $review_query);
 </nav>
 
 
-    <main>
-        <div class = "content">
-            <br>
-            <?php
-            echo "<h2>" . $this_movie_record['movie_name'] . "</h2><br>";
-            //            Retrieve information from database of selected movie
+<main>
+    <div class = "content">
+        <?php
+            echo "<form action = processes/update.php method = post>";
+                echo "<input type=text name = movie_name value = '" . $this_movie_record['movie_name']."'></td>";
+                echo "<input type=text name = release_year value = '" . $this_movie_record['release_year']."'></td>";
+                echo "<input type=text name = language value = '" . $this_movie_record['language']."'></td>";
 
-            echo "<img class='item-img' src='images/Rainbow_Flag.png' width = '25%'>";
+                //  make this the flag
 
-            echo "<p>"; //  make this the flag
-            while ($representation_record = mysqli_fetch_assoc($representation_result)) {
-                echo $representation_record['representation'];
-                echo " representation";
-            }
-            echo "<br>";
+            // edit genres - make a checklist
 
-            echo "<p>";
-            while ($genre_record = mysqli_fetch_assoc($genre_result)) {
-                echo $genre_record['genre'];
-                echo ", ";
-            }
-            ?>
-
-<!--            Review Form -->
-            <?php
-                echo "<form name = 'review_form' method = 'post' action = 'processes/review.php?movie=" . $id . "'>
-                <input type='text' name='review' placeholder='Add a review...' ><br>
-                <input type='submit' name='submit' id='submit' value='submit'>
-            </form>";
-            ?>
-
-
-
-<!--            Edit movie-->
-            <?php
-            if(($_SESSION['admin'])){
-                echo "<a href='edit_movie.php?movie=" . $id . "'>edit</a>";
-            }
-
-            ?>
-
-            <!--            Reviews-->
-<br><br>
-            <?php
-            while ($review_record = mysqli_fetch_assoc($review_result)) {
-                echo "<strong>";
-                echo $review_record['username'];
-                echo ": </strong>";
-                echo $review_record['review'];
                 echo "<br>";
-            }
-            ?>
-        </div>
-    </main>
+                print_r($genre_record);
+                echo "<br>";
+                while ($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
+                    if(in_array($all_genre_record['genre_id'], $genre_record)){
+                        $checked = true;
+                        echo "checked";
+                    }else{
+                        $checked = false;
+                    }
+                    echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= ". $all_genre_record['genre_id'].
+                    "' value = '" .$all_genre_record['genre'] . "'";
+                    if ($checked){
+                        echo " checked";
+                    }
+                    echo ">";
+                    echo "<label for= '". $all_genre_record['genre_id']. "'>" .$all_genre_record['genre'] . "</label><br>";
+                }
 
 
-</body>
-</html>
 
+
+
+                echo "<input type=hidden name = movie_id value='" .$this_movie_record['movie_id']. "'>";
+                echo "<td><input type = submit></td>";
+
+
+            echo "</form>";
+        //            delete movie
+                    echo "<td><a href=processes/delete.php?movie_id=" .$this_movie_record['movie_id']. ">Delete movie</a></td>";
+        ?>
+
+
+
+    </div>
+</main>

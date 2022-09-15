@@ -20,16 +20,16 @@ else{
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="menu-link" href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="movies.php">Movies</a>
+                    <a href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="about_us.php">About Us</a>
+                    <a href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="create_account.php">Create Account</a>
+                    <a href="create_account.php">Create Account</a>
                 </li>
             </ul>
             <ul class ="navbar__menu navbar__menu--right">
@@ -65,7 +65,7 @@ else{
                 <?php
                 if ((!isset($_SESSION['username']))) {
                     echo "<li>
-                        <a class='menu-link' href='login.php'>Login</a>
+                        <a class='current-page' href='login.php'>Login</a>
                     </li>";
                 }
                 ?>
@@ -79,7 +79,7 @@ else{
     <div class = "content">
     <h2> Login Here </h2>
     <!-- Login Form -->
-    <form name = 'login_form' method = 'post' action = 'process_login.php'>
+    <form name = 'login_form' method = 'post' action = 'processes/process_login.php'>
         <label for="username"> Username: </label>
         <input type="text" name="username"><br>
 
