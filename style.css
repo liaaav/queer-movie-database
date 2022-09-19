@@ -269,3 +269,9 @@ input[type=submit]:hover {
 
 }
 
+/*movie details css*/
+
+.flag_img{
+    width: 40px;
+    height: 30px;
+}

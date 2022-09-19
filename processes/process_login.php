@@ -29,8 +29,14 @@ else{
         $_SESSION['logged_in'] = 1;
         $_SESSION['username'] = $user;
         $_SESSION['admin'] = $admin;
+        // get user id
+        $get_user_id = "SELECT user_id FROM users WHERE username = '". $user . "'";
+        $user_id_result = mysqli_query($con, $get_user_id);
+        $user_array = mysqli_fetch_assoc($user_id_result);
+        $_SESSION['user_id'] = $user_array['user_id'];
+
         header("Location: ../index.php");
     }
     else{
-        header("Location: ../login.php");
+        header("Location: ../login.php?msg=failed");
     }

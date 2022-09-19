@@ -15,6 +15,8 @@ if(isset($_GET['movie'])){
 if((!isset($_SESSION['admin']))){
     header("Location: index.php");
 }
+
+
 $all_genre_query = "SELECT * FROM genre";
 $all_genre_result = mysqli_query($con, $all_genre_query);
 
@@ -45,7 +47,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a href="index.php">Home</a>
+                    <a class="current-page" href="index.php">Home</a>
                 </li>
                 <li>
                     <a href="movies.php">Movies</a>
@@ -54,7 +56,13 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                     <a href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a href="create_account.php">Create Account</a>
+                    <?php
+                    if ((isset($_SESSION['logged_in']))) {
+                        if ($_SESSION['admin']) {
+                            echo "<a href='admin.php'>Admin</a>";
+                        }
+                    }
+                    ?>
                 </li>
             </ul>
             <ul class ="navbar__menu navbar__menu--right">
@@ -89,9 +97,13 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                 ?>
                 <?php
                 if ((!isset($_SESSION['username']))) {
-                    echo "<li>
-                        <a class='menu-link' href='login.php'>Login</a>
-                    </li>";
+                    echo "
+                        <li>
+                            <a href='create_account.php'>Create Account</a>
+                        </li>
+                        <li>
+                            <a class='menu-link' href='login.php'>Login</a>
+                        </li>";
                 }
                 ?>
 
@@ -113,7 +125,10 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
             <input type="text" id = "movie_name" name ="movie_name"><br>
 
             <label for="release_year">Release Year: </label>
-            <input type="text" id= "release_year" name ="release_year"><br>
+            <?php
+            echo "<input type='number' name = 'release_year' min='1880' max='". date('Y'). "' required='required'>"
+            ?>
+            <br>
 
             <label for="language">Language: </label>
             <input type="text" id= "language" name ="language"><br>
@@ -126,7 +141,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
             }
             mysqli_free_result($all_genre_result);
             ?>
-
+<br>
             <?php
             while ($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
                 echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= ". $all_representation_record['representation_id'].
@@ -170,6 +185,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                 <th> Delete</th>
             </tr>
             <?php
+            $all_representation_result = mysqli_query($con, $all_representation_query);
             while($row = mysqli_fetch_array($all_representation_result))
             {
                 echo "<tr><form action = update_representation.php method = post>";

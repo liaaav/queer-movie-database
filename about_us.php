@@ -30,16 +30,22 @@ else{
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a href="index.php">Home</a>
+                    <a class="current-page" href="index.php">Home</a>
                 </li>
                 <li>
                     <a href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="current-page" href="about_us.php">About Us</a>
+                    <a href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a href="create_account.php">Create Account</a>
+                    <?php
+                    if ((isset($_SESSION['logged_in']))) {
+                        if ($_SESSION['admin']) {
+                            echo "<a href='admin.php'>Admin</a>";
+                        }
+                    }
+                    ?>
                 </li>
             </ul>
             <ul class ="navbar__menu navbar__menu--right">
@@ -74,9 +80,13 @@ else{
                 ?>
                 <?php
                 if ((!isset($_SESSION['username']))) {
-                    echo "<li>
-                        <a class='menu-link' href='login.php'>Login</a>
-                    </li>";
+                    echo "
+                        <li>
+                            <a href='create_account.php'>Create Account</a>
+                        </li>
+                        <li>
+                            <a class='menu-link' href='login.php'>Login</a>
+                        </li>";
                 }
                 ?>
 

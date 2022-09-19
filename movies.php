@@ -60,7 +60,7 @@ if(isset($_GET['availability'])){
     }
 }
 */
-$all_movies_query = "SELECT * FROM movie";
+$all_movies_query = "SELECT * FROM movie ORDER BY movie_name ASC";
 $all_movies_result = mysqli_query($con, $all_movies_query);
 ?>
 
@@ -87,16 +87,22 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="menu-link" href="index.php">Home</a>
+                    <a class="current-page" href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="current-page" href="movies.php">Movies</a>
+                    <a href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="about_us.php">About Us</a>
+                    <a href="about_us.php">About Us</a>
                 </li>
                 <li>
-                    <a class="menu-link" href="create_account.php">Create Account</a>
+                    <?php
+                    if ((isset($_SESSION['logged_in']))) {
+                        if ($_SESSION['admin']) {
+                            echo "<a href='admin.php'>Admin</a>";
+                        }
+                    }
+                    ?>
                 </li>
             </ul>
             <ul class ="navbar__menu navbar__menu--right">
@@ -131,9 +137,13 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
                 ?>
                 <?php
                 if ((!isset($_SESSION['username']))) {
-                    echo "<li>
-                        <a class='menu-link' href='login.php'>Login</a>
-                    </li>";
+                    echo "
+                        <li>
+                            <a href='create_account.php'>Create Account</a>
+                        </li>
+                        <li>
+                            <a class='menu-link' href='login.php'>Login</a>
+                        </li>";
                 }
                 ?>
 
@@ -148,16 +158,20 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
 
 <main>
     <div class = "content">
-
+<!--SORTING MOVIES-->
+        <ul>
+            <li>
+                
+            </li>
+        </ul>
 
             <div class="grid">
                 <?php
                 /*Display Items*/
                 while ($all_movies_record = mysqli_fetch_assoc($all_movies_result)) {
-    //                echo "<div class='item-box'>";
                     echo '<a href= "movie.php?movie=' . $all_movies_record['movie_id'] . '">';
                     echo "<div>";
-                    echo "<img class='item-img' src='images/Rainbow_Flag.png' width = '100%'>";
+                    echo "<img class='item-img' src='images/lgbtq_flag.png' width = '100%'>";
                     echo "<br><p>";
                     echo $all_movies_record['movie_name'];
                     echo "</p><br>";

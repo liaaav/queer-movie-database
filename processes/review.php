@@ -7,13 +7,9 @@ else{
     echo "connected to database";
 }
 $review = $_POST['review'];
-$user = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
 $movie_id = $_GET['movie'];
-echo $user;
-$get_user_id = "SELECT user_id FROM users WHERE username = '". $user . "'";
-$user_id_result = mysqli_query($con, $get_user_id);
-$user_array = mysqli_fetch_assoc($user_id_result);
-$user_id = $user_array['user_id'];
+
 
 $insert_review = "INSERT INTO review (movie_id, user_id, review) VALUES ('$movie_id','$user_id','$review')";
 
