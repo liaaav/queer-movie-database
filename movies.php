@@ -158,12 +158,9 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
 
 <main>
     <div class = "content">
+        <div class="page-grid">
+            <div class = 'main'>
 <!--SORTING MOVIES-->
-        <ul>
-            <li>
-                
-            </li>
-        </ul>
 
             <div class="grid">
                 <?php
@@ -171,7 +168,7 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
                 while ($all_movies_record = mysqli_fetch_assoc($all_movies_result)) {
                     echo '<a href= "movie.php?movie=' . $all_movies_record['movie_id'] . '">';
                     echo "<div>";
-                    echo "<img class='item-img' src='images/lgbtq_flag.png' width = '100%'>";
+                    echo "<img class='movie-img' src='images/lgbtq_flag.png'>";
                     echo "<br><p>";
                     echo $all_movies_record['movie_name'];
                     echo "</p><br>";
@@ -181,7 +178,8 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
                 }
                 ?>
             </div>
-    </div>
+            </div>
+    </div></div>
 </main>
 <footer>
 

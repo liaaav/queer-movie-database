@@ -173,6 +173,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                 echo "<td><a href=delete_genre.php?genre_id=" .$row['genre_id']. ">Delete</a></td>";
                 echo "</form></tr>";
             }
+            // add genre
             ?>
         </table>
         <h2> Edit Representation </h2>
@@ -195,6 +196,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                 echo "<td><a href=delete_representation.php?representation_id=" .$row['representation_id']. ">Delete</a></td>";
                 echo "</form></tr>";
             }
+            // add representation and edit flag
             ?>
         </table>
     </div>

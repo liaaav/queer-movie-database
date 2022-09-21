@@ -98,7 +98,7 @@ session_start();
 
                 <div class = "col 100vh">
                     <div class = "home-hero__img">
-                        <img src="images/Rainbow_Flag.png" alt = "rainbow pride flag">
+                        <img src="images/lgbtq_flag.png" alt = "rainbow pride flag">
                     </div>
                 </div>
 
@@ -109,20 +109,20 @@ session_start();
             </div>
         </section>
         <br>
-            <h2>Recommended Movies</h2>
+        <h2>Recommended Movies</h2>
         <div class="grid">
-        <?php
-        while ($all_movie_rec_record = mysqli_fetch_assoc($all_movie_rec_result)) {
-            echo '<a href= "movie.php?movie=' . $all_movie_rec_record['movie_id'] . '">';
-            echo "<div>";
-            echo "<img class='item-img' src='images/lgbtq_flag.png' width = '100%'>";
-            echo "<br><p>";
-            echo $all_movie_rec_record['movie_name'];
-            echo "</p><br>";
-            echo "</div>";
-            echo "</a>";
-        }
-        ?>
+            <?php
+            while ($all_movie_rec_record = mysqli_fetch_assoc($all_movie_rec_result)) {
+                echo '<a href= "movie.php?movie=' . $all_movie_rec_record['movie_id'] . '">';
+                echo "<div>";
+                echo "<img class='item-img' src='images/lgbtq_flag.png' width = '100%'>";
+                echo "<br><p>";
+                echo $all_movie_rec_record['movie_name'];
+                echo "</p><br>";
+                echo "</div>";
+                echo "</a>";
+            }
+            ?>
         </div>
     </div>
 </main>
