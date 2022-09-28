@@ -8,28 +8,6 @@ else{
     echo "connected to database";
 }
 
-/*
-//Setting variables for category
-if(isset($_GET['category'])){
-    if(empty($_GET['category'])){
-        unset($_GET['category']);
-    }
-    else{
-        $category = "AND categories.Category = '" . $_GET['category'] ."'";
-    }
-
-}else{
-    $category = "";
-}
-//Setting variables for filters
-if(isset($_GET['filter'])){
-    if(empty($_GET['filter'])) {
-        unset($_GET['filter']);
-    }
-    else{
-        $filter = "AND " . $_GET['filter'] . "= TRUE";
-    }
-}
 // Setting variables for sorting items order
 if(isset($_GET['sort'])){
     $sort = $_GET['sort'];
@@ -37,32 +15,61 @@ if(isset($_GET['sort'])){
     $sort = 'alphaAsc';
 }
 if($sort == 'alphaAsc') {
-    $field = 'ItemName';
+    $field = 'movie_name';
     $order = 'ASC';
-}elseif($sort == 'costAsc') {
-    $field = 'Cost';
-    $order = 'ASC';
-}elseif($sort == 'costDesc') {
-    $field = 'Cost';
-    $order = 'DESC';
 }elseif($sort == 'alphaDesc') {
-    $field = 'ItemName';
+    $field = 'movie_name';
     $order = 'DESC';
 
 }
-// Setting variable for availability
-if(isset($_GET['availability'])){
-    if(empty($_GET['availability'])) {
-        unset($_GET['availability']);
+
+
+// all movies
+$movies_query = "SELECT * FROM movie ORDER BY $field $order";
+$movies_result = mysqli_query($con, $movies_query);
+
+//all representations
+$all_representation_query = "SELECT * FROM representation";
+$all_representation_result = mysqli_query($con, $all_representation_query);
+
+// all genres
+$all_genre_query = "SELECT * FROM genre";
+$all_genre_result = mysqli_query($con, $all_genre_query);
+
+if(isset($_GET['genre_id'])){
+    if(empty($_GET['genre_id'])) {
+        unset($_GET['genre_id']);
     }
     else{
-        $availability = "AND Availability = " . $_GET['availability'];
+        $movies_query = "SELECT movie.*, genre.* FROM genre, movie, movie_genre WHERE genre.genre_id = movie_genre.genre_id 
+                                AND movie.movie_id = movie_genre.movie_id AND movie_genre.genre_id = '".$_GET['genre_id'] . "' 
+                                ORDER BY $field $order";
+        $movies_result = mysqli_query($con, $movies_query);
+
+        $genre_query = "SELECT genre FROM  genre WHERE genre_id = '" . $_GET['genre_id'] . "'";
+        $genre_result = mysqli_query($con, $genre_query);
+        $genre_record = mysqli_fetch_assoc($genre_result);
     }
 }
-*/
-$all_movies_query = "SELECT * FROM movie ORDER BY movie_name ASC";
-$all_movies_result = mysqli_query($con, $all_movies_query);
+
+if(isset($_GET['representation_id'])){
+    if(empty($_GET['representation_id'])) {
+        unset($_GET['representation_id']);
+    }
+    else{
+        $movies_query = "SELECT movie.*, representation.* FROM representation, movie, movie_representation WHERE 
+                        representation.representation_id = movie_representation.representation_id 
+                        AND movie.movie_id = movie_representation.movie_id AND movie_representation.representation_id = '".$_GET['representation_id'] . "'
+                         ORDER BY $field $order";
+        $movies_result = mysqli_query($con, $movies_query);
+
+        $representation_query = "SELECT representation FROM  representation WHERE representation_id = '" . $_GET['representation_id'] . "'";
+        $representation_result = mysqli_query($con, $representation_query);
+        $representation_record = mysqli_fetch_assoc($representation_result);
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,14 +79,7 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
-<body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> Queer Movie Database </title>
-    <meta charset="utf-8">
-    <link rel='stylesheet' type='text/css' href="style.css">
-</head>
+
 <body>
 
 <nav>
@@ -87,10 +87,10 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="current-page" href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a href="movies.php">Movies</a>
+                    <a class="current-page" href="movies.php">Movies</a>
                 </li>
                 <li>
                     <a href="about_us.php">About Us</a>
@@ -130,7 +130,7 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
                 <?php
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
-                                    <a class='menu-link' href='logout.php'>Logout</a>
+                                    <a href='logout.php'>Logout</a>
                                 </li>";
                 }
 
@@ -142,7 +142,7 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
                             <a href='create_account.php'>Create Account</a>
                         </li>
                         <li>
-                            <a class='menu-link' href='login.php'>Login</a>
+                            <a href='login.php'>Login</a>
                         </li>";
                 }
                 ?>
@@ -158,29 +158,110 @@ $all_movies_result = mysqli_query($con, $all_movies_query);
 
 <main>
     <div class = "content">
-<!--SORTING MOVIES-->
-        <ul>
-            <li>
-                
-            </li>
-        </ul>
+        <div class="main">
+            <h1>
+            <?php
 
-            <div class="grid">
-                <?php
-                /*Display Items*/
-                while ($all_movies_record = mysqli_fetch_assoc($all_movies_result)) {
-                    echo '<a href= "movie.php?movie=' . $all_movies_record['movie_id'] . '">';
-                    echo "<div>";
-                    echo "<img class='item-img' src='images/lgbtq_flag.png' width = '100%'>";
-                    echo "<br><p>";
-                    echo $all_movies_record['movie_name'];
-                    echo "</p><br>";
-                    echo "</div>";
-                    echo "</a>";
+            echo "Movies";
+            if(isset($_GET['genre_id'])){
+                echo " - ";
+                echo $genre_record['genre'];
+            }elseif(isset($_GET['representation_id'])){
+                echo " - ";
+                echo $representation_record['representation'];
+            }
+            ?>
+            </h1>
 
-                }
-                ?>
+
+
+            <div class="page-grid">
+                <div class="filters">
+                    <!--Sort Items Dropdown-->
+                    <div class="filter-panel">
+                        <div class="filter-panel-inner">
+                        <h2>Sorting</h2>
+                            <form name='sort_form' id='sort_form' method='get' action='movies.php'>
+                                <div class="dropdown">
+                                    <select id='sort' name='sort'>
+                                        <!--options-->
+                                        <option value='alphaAsc'
+                                            <?php
+                                            if($sort == 'alphaAsc'){
+                                                echo ' selected';
+                                            }
+                                            ?>
+                                        > Alphabetical A to Z</option>
+                                        <option value='alphaDesc'
+                                            <?php
+                                            if($sort == 'alphaDesc'){
+                                                echo ' selected';
+                                            }
+                                            ?>> Alphabetical Z to A</option>
+                                    </select>
+                                </div>
+                                    <input class="submit-button" type="submit" name="submit" value="submit">
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="filter-panel">
+                        <div class="filter-panel-inner">
+                            <h2>Genres</h2>
+                            <ul class="filter">
+                                <?php
+                                    while($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
+                                        echo "<li>";
+                                        echo "<a href='movies.php?genre_id=".$all_genre_record['genre_id'] ."'>";
+                                        echo $all_genre_record['genre'];
+                                        echo "</a>";
+                                        echo "</li>";
+                                    }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter-panel">
+                        <div class="filter-panel-inner">
+                            <h2>Representation</h2>
+                            <ul class="filter">
+                                <?php
+                                while($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
+                                    echo "<li>";
+                                    echo "<a href='movies.php?representation_id=".$all_representation_record['representation_id'] ."' class = 'tag'>";
+                                    echo $all_representation_record['representation'];
+                                    echo "</a>";
+                                    echo "</li>";
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <div class = 'movies'>
+            <!--SORTING MOVIES-->
+                <div class="grid">
+                    <?php
+                    /*Display movies*/
+                    if($movies_result->num_rows === 0){
+                        echo "No results";
+                    }
+                    while ($movies_record = mysqli_fetch_assoc($movies_result)) {
+
+                        echo '<a href= "movie.php?movie=' . $movies_record['movie_id'] . '">';
+                        echo "<div>";
+                        echo "<img class='movie-img' src='images/" . $movies_record['img_file_path'] . "'>";
+                        echo "<br><p>";
+                        echo $movies_record['movie_name'];
+                        echo "</p><br>";
+                        echo "</div>";
+                        echo "</a>";
+
+                    }
+                    ?>
+                </div>
             </div>
+    </div></div>
     </div>
 </main>
 <footer>

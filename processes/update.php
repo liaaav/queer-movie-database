@@ -6,7 +6,7 @@ else{
     echo "connected to database";
 }
 $movie_name = str_replace("'", "''", $_POST['movie_name']);
-$update_movie = "UPDATE movie SET movie_name = '$movie_name', release_year = '$_POST[release_year]', language = '$_POST[language]' WHERE movie_id ='$_POST[movie_id]'";
+$update_movie = "UPDATE movie SET movie_name = '$movie_name', release_year = '$_POST[release_year]', language = '$_POST[language]', img_file_path = '$_POST[img]' WHERE movie_id ='$_POST[movie_id]'";
 
 $delete_existing_genres = "DELETE FROM movie_genre WHERE movie_id='$_POST[movie_id]'";
 if(!mysqli_query($con, $delete_existing_genres))

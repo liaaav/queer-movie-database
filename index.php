@@ -7,7 +7,7 @@ session_start();
 
     }
 
-    $all_movie_rec_query = "SELECT movie.movie_name, movie.movie_id FROM movie, movie_rec WHERE movie.movie_id = movie_rec.movie_id";
+    $all_movie_rec_query = "SELECT movie.*, movie.movie_id FROM movie, movie_rec WHERE movie.movie_id = movie_rec.movie_id";
     $all_movie_rec_result = mysqli_query($con, $all_movie_rec_query);
 ?>
 
@@ -98,7 +98,7 @@ session_start();
 
                 <div class = "col 100vh">
                     <div class = "home-hero__img">
-                        <img src="images/Rainbow_Flag.png" alt = "rainbow pride flag">
+                        <img src="images/lgbtq_flag.png" alt = "rainbow pride flag">
                     </div>
                 </div>
 
@@ -109,20 +109,22 @@ session_start();
             </div>
         </section>
         <br>
+        <div class='main'>
             <h2>Recommended Movies</h2>
-        <div class="grid">
-        <?php
-        while ($all_movie_rec_record = mysqli_fetch_assoc($all_movie_rec_result)) {
-            echo '<a href= "movie.php?movie=' . $all_movie_rec_record['movie_id'] . '">';
-            echo "<div>";
-            echo "<img class='item-img' src='images/lgbtq_flag.png' width = '100%'>";
-            echo "<br><p>";
-            echo $all_movie_rec_record['movie_name'];
-            echo "</p><br>";
-            echo "</div>";
-            echo "</a>";
-        }
-        ?>
+            <div class="rec-grid">
+                <?php
+                while ($all_movie_rec_record = mysqli_fetch_assoc($all_movie_rec_result)) {
+                    echo '<a href= "movie.php?movie=' . $all_movie_rec_record['movie_id'] . '">';
+                    echo "<div>";
+                    echo "<img class='movie-img' src='images/".$all_movie_rec_record['img_file_path']."'>";
+                    echo "<br><p>";
+                    echo $all_movie_rec_record['movie_name'];
+                    echo "</p><br>";
+                    echo "</div>";
+                    echo "</a>";
+                }
+                ?>
+            </div>
         </div>
     </div>
 </main>

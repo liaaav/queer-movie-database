@@ -9,9 +9,10 @@ else{
 $review = $_POST['review'];
 $user_id = $_SESSION['user_id'];
 $movie_id = $_GET['movie'];
+$datetime = date('Y-m-d H:i:s');
 
 
-$insert_review = "INSERT INTO review (movie_id, user_id, review) VALUES ('$movie_id','$user_id','$review')";
+$insert_review = "INSERT INTO review (movie_id, user_id, review, datetime) VALUES ('$movie_id','$user_id','$review','$datetime')";
 
 if(!mysqli_query($con, $insert_review))
 {

@@ -16,27 +16,20 @@ else{
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
-<body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> Queer Movie Database </title>
-    <meta charset="utf-8">
-    <link rel='stylesheet' type='text/css' href="style.css">
-</head>
+
 <body>
 <nav>
     <div class = "navbar">
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="current-page" href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
                     <a href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a href="about_us.php">About Us</a>
+                    <a class="current-page" href="about_us.php">About Us</a>
                 </li>
                 <li>
                     <?php
@@ -73,7 +66,7 @@ else{
                 <?php
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
-                                    <a class='menu-link' href='logout.php'>Logout</a>
+                                    <a href='logout.php'>Logout</a>
                                 </li>";
                 }
 
@@ -85,7 +78,7 @@ else{
                             <a href='create_account.php'>Create Account</a>
                         </li>
                         <li>
-                            <a class='menu-link' href='login.php'>Login</a>
+                            <a href='login.php'>Login</a>
                         </li>";
                 }
                 ?>

@@ -64,22 +64,14 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
-<body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> Queer Movie Database </title>
-    <meta charset="utf-8">
-    <link rel='stylesheet' type='text/css' href="style.css">
 
-</head>
 <body>
 <nav>
     <div class = "navbar">
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="current-page" href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
                     <a href="movies.php">Movies</a>
@@ -148,12 +140,23 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
 </nav>
 <main>
     <div class = "content">
+        <form action="processes/upload.php" method="post" enctype="multipart/form-data">
+            Select image to upload:
+            <input type="file" name="fileToUpload" id="fileToUpload">
+
+        <?php
+            echo "<input type=hidden name = movie_id value='" .$this_movie_record['movie_id']. "'>";
+        ?>
+            <input type="submit" value="Upload Image" name="submit">
+        </form>
         <?php
         $movie_name = str_replace("'", "&apos;", $this_movie_record['movie_name']); // if the movie name has quotes
             echo "<form action = processes/update.php method = post>";
-                echo "<input type=text name = movie_name required='required' value = '" . $movie_name. "'></td>";
-                echo "<input type=number name = release_year min='1880' max='". date('Y'). "' required='required' value = '" . $this_movie_record['release_year']."'></td>";
-                echo "<input type=text name = language required='required' value = '" . $this_movie_record['language']."'></td>";
+                echo "<input type=text name = movie_name required='required' value = '" . $movie_name. "'>";
+                echo "<input type=number name = release_year min='1880' max='". date('Y'). "' required='required' value = '" . $this_movie_record['release_year']."'>";
+                echo "<input type=text name = language required='required' value = '" . $this_movie_record['language']."'>";
+
+
 
 
             // edit genres

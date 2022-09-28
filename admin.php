@@ -32,22 +32,14 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
-<body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> Queer Movie Database </title>
-    <meta charset="utf-8">
-    <link rel='stylesheet' type='text/css' href="style.css">
 
-</head>
 <body>
 <nav>
     <div class = "navbar">
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class="current-page" href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
                     <a href="movies.php">Movies</a>
@@ -59,7 +51,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                     <?php
                     if ((isset($_SESSION['logged_in']))) {
                         if ($_SESSION['admin']) {
-                            echo "<a href='admin.php'>Admin</a>";
+                            echo "<a class='current-page' href='admin.php'>Admin</a>";
                         }
                     }
                     ?>
@@ -90,7 +82,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                 <?php
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
-                                    <a class='menu-link' href='logout.php'>Logout</a>
+                                    <a href='logout.php'>Logout</a>
                                 </li>";
                 }
 
@@ -99,10 +91,10 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
                 if ((!isset($_SESSION['username']))) {
                     echo "
                         <li>
-                            <a href='create_account.php'>Create Account</a>
+                            <a  href='create_account.php'>Create Account</a>
                         </li>
                         <li>
-                            <a class='menu-link' href='login.php'>Login</a>
+                            <a href='login.php'>Login</a>
                         </li>";
                 }
                 ?>
@@ -134,6 +126,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
             <input type="text" id= "language" name ="language"><br>
 
             <?php
+//            all the genres
             while ($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
                 echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= ". $all_genre_record['genre_id'].
                     "' value = '" .$all_genre_record['genre'] . "'>";
@@ -143,6 +136,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
             ?>
 <br>
             <?php
+//            all the representations
             while ($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
                 echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= ". $all_representation_record['representation_id'].
                     "' value = '" .$all_representation_record['representation'] . "'>";
@@ -166,21 +160,36 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
             $all_genre_result = mysqli_query($con, $all_genre_query);
             while($row = mysqli_fetch_array($all_genre_result))
             {
-                echo "<tr><form action = update_genre.php method = post>";
+                echo "<tr><form action = processes/update_filter.php method = post>";
                 echo "<td><input type=text name = genre value = '" . $row['genre']."'></td>";
                 echo "<input type=hidden name = genre_id value='" .$row['genre_id']. "'>";
                 echo "<td><input type = submit></td>";
                 echo "<td><a href=delete_genre.php?genre_id=" .$row['genre_id']. ">Delete</a></td>";
                 echo "</form></tr>";
             }
+
             ?>
+<!--            add genre-->
+            <tr>
+                    <form action = 'processes/insert_filter.php' method = post>
+                        <td>
+                            <input type="text" name="genre_id" id="genre_id" placeholder="Genre id..." pattern="[A-Za-z]{3}">
+                        </td>
+                        <td>
+                            <input type="text" name="genre" id="genre" placeholder="New Genre..." >
+                        </td>
+                        <td>
+                        <input type="submit">
+                        </td>
+                    </form>
+
+            </tr>
         </table>
         <h2> Edit Representation </h2>
 
         <table>
             <tr>
                 <th> Representation </th>
-<!--                flag-->
                 <th> Submit </th>
                 <th> Delete</th>
             </tr>
@@ -188,14 +197,33 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
             $all_representation_result = mysqli_query($con, $all_representation_query);
             while($row = mysqli_fetch_array($all_representation_result))
             {
-                echo "<tr><form action = update_representation.php method = post>";
+                echo "<tr><form action = processes/update_filter.php method = post>";
                 echo "<td><input type=text name = representation value = '" . $row['representation']."'></td>";
                 echo "<input type=hidden name = representation_id value='" .$row['representation_id']. "'>";
                 echo "<td><input type = submit></td>";
                 echo "<td><a href=delete_representation.php?representation_id=" .$row['representation_id']. ">Delete</a></td>";
                 echo "</form></tr>";
             }
+            // add representation and edit flag
             ?>
+            <!--            add representation-->
+            <tr>
+                <form action = 'processes/insert_filter.php' method = post>
+                    <td>
+                        <input type="text" name="representation_id" id="representation_id" placeholder="Representation id..." pattern="[A-Za-z]{3}">
+                    </td>
+                    <td>
+                        <input type="text" name="representation" id="representation" placeholder="New Representation..." >
+                    </td>
+                    <td>
+                        <input type="file" id="flag" name="flag" accept="image/png, image/jpeg">
+                    </td>
+                    <td>
+                        <input type="submit">
+                    </td>
+                </form>
+
+            </tr>
         </table>
     </div>
 </main>
