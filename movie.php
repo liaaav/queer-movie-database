@@ -43,6 +43,16 @@ if ((isset($_SESSION['logged_in']))) {
 
     $user_rating = $user_rating_record['rating'];
 }
+
+// average movie rating
+$avg_rating_query = "SELECT AVG(rating) FROM rating WHERE movie_id = '" . $id . "'";
+$avg_rating_result = mysqli_query($con,$avg_rating_query);
+$avg_rating_record = mysqli_fetch_assoc($avg_rating_result);
+
+// amount of ratings for movie
+$count_rating_query = "SELECT COUNT(rating) FROM rating WHERE movie_id = '" . $id . "'";
+$count_rating_result = mysqli_query($con, $count_rating_query);
+$count_rating_record = mysqli_fetch_assoc($count_rating_result);
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +62,7 @@ if ((isset($_SESSION['logged_in']))) {
     <meta charset="utf-8">
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -140,10 +151,8 @@ if ((isset($_SESSION['logged_in']))) {
 <!--                        Retrieve information from database of selected movie-->
                             <div class='poster'>
                                 <?php
-
-
                                 //  display image
-                                echo "<img class='movie-img' src='images/". $this_movie_record['img_file_path'] . "' width = '15%'>";
+                                echo "<img class='movie-img' src='movie_images/". $this_movie_record['img_file_path'] . "' width = '15%'>";
                                 ?>
                             </div>
                             <div class="movie-details">
@@ -153,16 +162,40 @@ if ((isset($_SESSION['logged_in']))) {
                                 echo "<h1 class='movie-title'>" . $this_movie_record['movie_name'] . "</h1>";
 
                 //              other movie details
-                                echo "<p>";
-                                echo $this_movie_record['release_year'];
-                                echo " &#x2022; ";
-                                echo $this_movie_record['language'];
+                                echo "<div class='movie-facts'>";
+                                echo "<span>";
+                                    echo $this_movie_record['release_year'];
+                                echo "</span>";
+//                                dot
+                                echo "<span>";
+                                echo "&#x2022; ";
+                                echo "</span>";
+                                echo "<span>";
+                                    echo $this_movie_record['language'];
+                                echo "</span>";
+
+//                                dot
+                                echo "<span>";
+                                echo "&#x2022; ";
+                                echo "</span>";
+//                                edit movie
+                //               link hidden if not admin
+                                echo "<span>";
+                                if ((isset($_SESSION['logged_in']))){
+                                    if(($_SESSION['admin'])){
+                                        echo "<a class='edit-movie-button' href='edit_movie.php?movie=" . $id . "'>
+                                                    <span class='material-symbols-outlined'>edit</span></a>";
+                                    }
+                                }
+                                echo "</span>";
+
+                                echo "</div>";
 
                 //              display gay flags
                                 echo "<div class = movie-representation>";
                                 while ($representation_record = mysqli_fetch_assoc($representation_result)) {
                                     echo "<a href='movies.php?representation_id=" . $representation_record['representation_id'] . "'>";
-                                    echo "<img class='flag_img' src='images/". $representation_record['flag_file_path'] . "'>";
+                                    echo "<img class='flag-img' src='flag_images/". $representation_record['flag_file_path'] . "'>";
                                     echo "</a>";
                                 }
                                 echo "</div>";
@@ -181,16 +214,7 @@ if ((isset($_SESSION['logged_in']))) {
 
                                 ?>
             <br>
-                                <!--            Edit movie-->
-                                <?php
-                //               link hidden if not admin
-                                if ((isset($_SESSION['logged_in']))){
-                                    if(($_SESSION['admin'])){
-                                        echo "<a href='edit_movie.php?movie=" . $id . "'>edit</a>";
-                                    }
-                                }
 
-                                ?>
             <br>
                             </div>
                         </section>
@@ -198,11 +222,20 @@ if ((isset($_SESSION['logged_in']))) {
                 </div>
                 <!--            rate movie out of 5 -->
                 <?php
+                echo "<h3> Ratings </h3>";
+                //                User's rating
                 if(isset($user_rating)) {
                     echo '<p> You rated this movie ';
                     echo $user_rating;
                     echo '/5';
                 }
+//                Average rating
+                echo "<p> User rating";
+                echo "<br>" . round($avg_rating_record['AVG(rating)'], 2) . "/5";
+                echo "<br>";
+                echo $count_rating_record['COUNT(rating)'] . " votes";
+
+
                 if (isset($_SESSION['logged_in'])) {
 
                     ?>
@@ -227,8 +260,9 @@ if ((isset($_SESSION['logged_in']))) {
                 ?>
 
 
-
+<br>
                 <!--            Review Form -->
+                <h3> Reviews </h3>
                 <?php
                 if ((isset($_SESSION['logged_in']))) {
                     echo "<form name = 'review_form' method = 'post' action = 'processes/review.php?movie=" . $id . "'>
@@ -244,15 +278,34 @@ if ((isset($_SESSION['logged_in']))) {
 
                 <!--            Reviews-->
     <br><br>
+<table>
                 <?php
                 while ($review_record = mysqli_fetch_assoc($review_result)) {
-                    echo "<strong>";
-                    echo $review_record['username'];
-                    echo ": </strong>";
-                    echo $review_record['review'];
-                    echo "<br>";
+                    echo "<tr>";
+
+                if ((isset($_SESSION['logged_in']))) {
+                    if ($_SESSION['admin']) {
+                        echo "<td>";
+                        echo "<a href=processes/delete.php?review_id=" . $review_record['review_id'] . ">
+                               <span class='material-symbols-outlined'>delete</span>
+                               </a>";
+                        echo "</td>";
+                    }
+                }
+                    echo "<td>";
+                        echo "<strong>";
+                            echo $review_record['username'];
+                        echo ": </strong>";
+                    echo "</td>";
+                    echo "<td>";
+                        echo $review_record['review'];
+                    echo "</td>";
+
+                    echo "<tr>";
+
                 }
                 ?>
+</table>
             </div>
         </div>
     </main>

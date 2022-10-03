@@ -6,16 +6,6 @@ else{
     echo "connected to database";
 }
 
-$update_movie = "UPDATE movie SET img_file_path = '".$_FILES['fileToUpload']['name']. "' WHERE movie_id ='$_POST[movie_id]'";
-if(!mysqli_query($con, $update_movie))
-{
-    echo 'NOT UPDATED';
-}
-else
-{
-    echo 'UPDATED';
-}
-
 $target_dir = "../images/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;

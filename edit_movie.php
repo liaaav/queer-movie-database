@@ -140,75 +140,76 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
 </nav>
 <main>
     <div class = "content">
-        <form action="processes/upload.php" method="post" enctype="multipart/form-data">
-            Select image to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-
-        <?php
-            echo "<input type=hidden name = movie_id value='" .$this_movie_record['movie_id']. "'>";
-        ?>
-            <input type="submit" value="Upload Image" name="submit">
-        </form>
-        <?php
-        $movie_name = str_replace("'", "&apos;", $this_movie_record['movie_name']); // if the movie name has quotes
-            echo "<form action = processes/update.php method = post>";
-                echo "<input type=text name = movie_name required='required' value = '" . $movie_name. "'>";
-                echo "<input type=number name = release_year min='1880' max='". date('Y'). "' required='required' value = '" . $this_movie_record['release_year']."'>";
-                echo "<input type=text name = language required='required' value = '" . $this_movie_record['language']."'>";
+        <div class = "main">
+            <!--<form action="processes/upload.php" method="post" >
 
 
+            <?php
+/*                echo "<input type=hidden name = movie_id value='" .$this_movie_record['movie_id']. "'>";
+            */?>
+                <input type="submit" value="Upload Image" name="submit">
+            </form>-->
+            <?php
+            $movie_name = str_replace("'", "&apos;", $this_movie_record['movie_name']); // if the movie name has quotes
+                echo "<form action = processes/update.php method = post enctype='multipart/form-data'>";
+                    echo "<input type=text name = movie_name required='required' value = '" . $movie_name. "'>";
+                    echo "<input type=number name = release_year min='1880' max='". date('Y'). "' required='required' value = '" . $this_movie_record['release_year']."'>";
+                    echo "<input type=text name = language required='required' value = '" . $this_movie_record['language']."'>";
+
+                    echo "Select image to upload:
+                            <input type='file' name='fileToUpload' id='fileToUpload'>";
 
 
-            // edit genres
-                echo "<br>";
-                while ($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
+                // edit genres
+                    echo "<br>";
+                    while ($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
 
-                    // if movie already has genre
-                    if(in_array($all_genre_record['genre_id'], $movie_genres)){
-                        $checked = true;
-                    }else{
-                        $checked = false;
+                        // if movie already has genre
+                        if(in_array($all_genre_record['genre_id'], $movie_genres)){
+                            $checked = true;
+                        }else{
+                            $checked = false;
+                        }
+                        echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= ". $all_genre_record['genre_id'].
+                        "' value = '" .$all_genre_record['genre'] . "'";
+                        if ($checked){
+                            echo " checked";
+                        }
+                        echo ">";
+                        echo "<label for= '". $all_genre_record['genre_id']. "'>" .$all_genre_record['genre'] . "</label><br>";
                     }
-                    echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= ". $all_genre_record['genre_id'].
-                    "' value = '" .$all_genre_record['genre'] . "'";
-                    if ($checked){
-                        echo " checked";
-                    }
-                    echo ">";
-                    echo "<label for= '". $all_genre_record['genre_id']. "'>" .$all_genre_record['genre'] . "</label><br>";
-                }
 
-            // edit representation
-        echo "<br>";
-        while ($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
-
-            // if movie already has representation
-            if(in_array($all_representation_record['representation_id'], $movie_representations)){
-                $checked = true;
-            }else{
-                $checked = false;
-            }
-            echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= ". $all_representation_record['representation_id'].
-                "' value = '" .$all_representation_record['representation'] . "'";
-            if ($checked){
-                echo " checked";
-            }
-            echo ">";
-            echo "<label for= '". $all_representation_record['representation_id']. "'>" .$all_representation_record['representation'] . "</label><br>";
-        }
-
-
-                echo "<input type=hidden name = movie_id value='" .$this_movie_record['movie_id']. "'>";
-                echo "<td><input type = submit></td>";
-
-
-            echo "</form>";
+                // edit representation
             echo "<br>";
-        //            delete movie
-                    echo "<td><a href=processes/delete.php?movie_id=" .$this_movie_record['movie_id']. ">Delete movie</a></td>";
-        ?>
+            while ($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
+
+                // if movie already has representation
+                if(in_array($all_representation_record['representation_id'], $movie_representations)){
+                    $checked = true;
+                }else{
+                    $checked = false;
+                }
+                echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= ". $all_representation_record['representation_id'].
+                    "' value = '" .$all_representation_record['representation'] . "'";
+                if ($checked){
+                    echo " checked";
+                }
+                echo ">";
+                echo "<label for= '". $all_representation_record['representation_id']. "'>" .$all_representation_record['representation'] . "</label><br>";
+            }
 
 
+                    echo "<input type=hidden name = movie_id value='" .$this_movie_record['movie_id']. "'>";
+                    echo "<td><input type = submit></td>";
 
+
+                echo "</form>";
+                echo "<br>";
+            //            delete movie
+                        echo "<td><a href=processes/delete.php?movie_id=" .$this_movie_record['movie_id']. ">Delete movie</a></td>";
+            ?>
+
+
+        </div>
     </div>
 </main>

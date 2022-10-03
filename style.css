@@ -5,6 +5,8 @@ font-family: 'Tiro Gurmukhi', serif;*/
     border: 0;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
 }
 
 :root {
@@ -40,9 +42,7 @@ h3{
     font-family: 'Open Sans', sans-serif;
     letter-spacing: 3px;
     color: #25261C;
-    margin: auto;
     width: 98%;
-    font-size: 20px;
 }
 
 p{
@@ -69,6 +69,20 @@ section {
 ul {
     list-style-type: none;
 }
+
+input[type=submit] {
+    background-color: #cbc5d9;
+    color: #54506B;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+}
+
+    input[type=submit]:hover {
+        -webkit-filter: brightness(90%);
+    }
 
 /*moves content down for navigation*/
 .content {
@@ -132,20 +146,9 @@ input[type=text], select, textarea {
 }
 
 
-input[type=submit] {
-    background-color: #86cd82;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 40px;
-}
 
-input[type=submit]:hover {
-    background-color: #5ea854;
-}
+
+
 */
 
 /*movie grid*/
@@ -214,7 +217,7 @@ input[type=submit]:hover {
         background-color: #cbc5d9;
     }
 
-    .filter li:active{
+    .selected-filter{
         background-color: #cbc5d9;
     }
 
@@ -223,6 +226,9 @@ input[type=submit]:hover {
     padding: 14px 16px 16px 16px;
 }
 
+.edit-movie-button{
+
+}
 /* dropdown style */
 select {
     background-color: transparent;
@@ -242,7 +248,7 @@ select {
     font-size: 13px;
 }
 
-.submit-button{
+input[type=submit].submit-button{
     background-color: #cbc5d9;
     padding: 5px;
     margin: 10px 0;
@@ -250,11 +256,14 @@ select {
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+
 }
 
     .submit-button:hover{
         -webkit-filter: brightness(90%);
     }
+
+
 /*navbar*/
 
 .navbar{
@@ -374,7 +383,7 @@ select {
 
 /*movie details css*/
 
-.flag_img{
+.flag-img{
     width: 40px;
     height: 30px;
     padding: 3px 0;
@@ -396,6 +405,10 @@ select {
     display: flex;
     flex-wrap: nowrap;
     max-width: var(--page-max-width);
+    box-sizing: border-box;
+    z-index: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .poster{
@@ -417,6 +430,14 @@ select {
 .movie-title {
     width: 100%;
     padding: 0;
+}
+
+.movie-facts{
+    display: flex;
+}
+
+.movie-facts span{
+    padding-right: 10px;
 }
 
 .movie-representation{

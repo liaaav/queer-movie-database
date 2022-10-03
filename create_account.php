@@ -92,10 +92,10 @@ else{
     <!-- Create Account Form -->
     <form name = 'account_form' method = 'post' action = 'processes/create_account_process.php'>
         <label for="username"> Username: </label>
-        <input type="text" name="username"><br>
+        <input type="text" required='required' name="username"><br>
 
         <label for=password"> Password: </label>
-        <input type="password" name="password"><br>
+        <input type="password" required='required' name="password"><br>
 
         <input type="submit" name="submit" id="submit" value="submit">
     </form>

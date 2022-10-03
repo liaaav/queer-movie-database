@@ -22,6 +22,9 @@ $all_genre_result = mysqli_query($con, $all_genre_query);
 
 $all_representation_query = "SELECT * FROM representation";
 $all_representation_result = mysqli_query($con, $all_representation_query);
+
+$all_users_query = "SELECT * FROM users";
+$all_users_result = mysqli_query($con, $all_users_query);
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +34,7 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
     <meta charset="utf-8">
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -108,122 +112,144 @@ $all_representation_result = mysqli_query($con, $all_representation_query);
 
 <main>
     <div class = "content">
+        <div class="main">
 
-        <h2> Add Movie </h2>
+            <h2> Add Movie </h2>
 
-        <form action="processes/insert_movie.php" method ="post">
+            <form action="processes/insert_movie.php" method ="post">
 
-            <label for="movie_name">Movie Name :</label>
-            <input type="text" id = "movie_name" name ="movie_name"><br>
+                <label for="movie_name">Movie Name :</label>
+                <input type="text" id = "movie_name" name ="movie_name" required="required"><br>
 
-            <label for="release_year">Release Year: </label>
-            <?php
-            echo "<input type='number' name = 'release_year' min='1880' max='". date('Y'). "' required='required'>"
-            ?>
-            <br>
+                <label for="release_year">Release Year: </label>
+                <?php
+                echo "<input type='number' name = 'release_year' min='1880' max='". date('Y'). "' required='required'>"
+                ?>
+                <br>
 
-            <label for="language">Language: </label>
-            <input type="text" id= "language" name ="language"><br>
+                <label for="language">Language: </label>
+                <input type="text" id= "language" name ="language" required='required'><br>
 
-            <?php
-//            all the genres
-            while ($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
-                echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= ". $all_genre_record['genre_id'].
-                    "' value = '" .$all_genre_record['genre'] . "'>";
-                echo "<label for= '". $all_genre_record['genre_id']. "'>" .$all_genre_record['genre'] . "</label><br>";
-            }
-            mysqli_free_result($all_genre_result);
-            ?>
-<br>
-            <?php
-//            all the representations
-            while ($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
-                echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= ". $all_representation_record['representation_id'].
-                    "' value = '" .$all_representation_record['representation'] . "'>";
-                echo "<label for= '". $all_representation_record['representation_id']. "'>" .$all_representation_record['representation'] . "</label><br>";
-            }
-            mysqli_free_result($all_representation_result);
-            ?>
+                <?php
+    //            all the genres
+                while ($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
+                    echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= ". $all_genre_record['genre_id'].
+                        "' value = '" .$all_genre_record['genre'] . "'>";
+                    echo "<label for= '". $all_genre_record['genre_id']. "'>" .$all_genre_record['genre'] . "</label><br>";
+                }
+                mysqli_free_result($all_genre_result);
+                ?>
+    <br>
+                <?php
+    //            all the representations
+                while ($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
+                    echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= ". $all_representation_record['representation_id'].
+                        "' value = '" .$all_representation_record['representation'] . "'>";
+                    echo "<label for= '". $all_representation_record['representation_id']. "'>" .$all_representation_record['representation'] . "</label><br>";
+                }
+                mysqli_free_result($all_representation_result);
+                ?>
 
-            <input type="submit" name="insert_button" value="Insert">
-        </form>
+                <input type="submit" name="insert_button" value="Insert">
+            </form>
 
-        <h2> Edit Genres </h2>
+            <h2> Edit Genres </h2>
 
-        <table>
-            <tr>
-                <th> Genre </th>
-                <th> Submit </th>
-                <th> Delete</th>
-            </tr>
-            <?php
-            $all_genre_result = mysqli_query($con, $all_genre_query);
-            while($row = mysqli_fetch_array($all_genre_result))
-            {
-                echo "<tr><form action = processes/update_filter.php method = post>";
-                echo "<td><input type=text name = genre value = '" . $row['genre']."'></td>";
-                echo "<input type=hidden name = genre_id value='" .$row['genre_id']. "'>";
-                echo "<td><input type = submit></td>";
-                echo "<td><a href=delete_genre.php?genre_id=" .$row['genre_id']. ">Delete</a></td>";
-                echo "</form></tr>";
-            }
+            <table>
+                <tr>
+                    <th> Genre </th>
+                    <th> Submit </th>
+                    <th> Delete</th>
+                </tr>
+                <?php
+                $all_genre_result = mysqli_query($con, $all_genre_query);
+                while($row = mysqli_fetch_array($all_genre_result))
+                {
+                    echo "<tr><form action = processes/update_filter.php method = post>";
+                    echo "<td><input type=text name = genre required='required' value = '" . $row['genre']."'></td>";
+                    echo "<input type=hidden name = genre_id value='" .$row['genre_id']. "'>";
+                    echo "<td><input type = submit></td>";
+                    echo "<td><a href=processes/delete.php?genre_id=" .$row['genre_id']. ">Delete</a></td>";
+                    echo "</form></tr>";
+                }
 
-            ?>
-<!--            add genre-->
-            <tr>
-                    <form action = 'processes/insert_filter.php' method = post>
+                ?>
+    <!--            add genre-->
+                <tr>
+                        <form action = 'processes/insert_filter.php' method = post>
+                            <td>
+                                <input type="text" required='required' name="genre_id" id="genre_id" placeholder="Genre id..." pattern="[A-Za-z]{3}">
+                            </td>
+                            <td>
+                                <input type="text" required='required' name="genre" id="genre" placeholder="New Genre..." >
+                            </td>
+                            <td>
+                            <input type="submit">
+                            </td>
+                        </form>
+
+                </tr>
+            </table>
+            <h2> Edit Representation </h2>
+
+            <table>
+                <tr>
+                    <th> Representation </th>
+                    <th> Submit </th>
+                    <th> Delete</th>
+                </tr>
+                <?php
+                $all_representation_result = mysqli_query($con, $all_representation_query);
+                while($row = mysqli_fetch_array($all_representation_result))
+                {
+                    echo "<tr><form action = processes/update_filter.php method = post>";
+                    echo "<td><img class = 'flag-img' src = 'flag_images/". $row['flag_file_path'] ."' alt = '". $row['flag_file_path'] ."'>";
+                    echo "<td><input type=text required='required' name = representation value = '" . $row['representation']."'></td>";
+                    echo "<input type=hidden name = representation_id value='" .$row['representation_id']. "'>";
+                    echo "<td><input type = submit></td>";
+                    echo "<td><a href=processes/delete.php?representation_id=" .$row['representation_id']. ">Delete</a></td>";
+                    echo "</form></tr>";
+                }
+                // add representation and edit flag
+                ?>
+                <!--            add representation-->
+                <tr>
+                    <form action = 'processes/insert_filter.php' method = post enctype='multipart/form-data'>
                         <td>
-                            <input type="text" name="genre_id" id="genre_id" placeholder="Genre id..." pattern="[A-Za-z]{3}">
+                            <input type="text" required='required' name="representation_id" id="representation_id" placeholder="Representation id..." pattern="[A-Za-z]{3}">
                         </td>
                         <td>
-                            <input type="text" name="genre" id="genre" placeholder="New Genre..." >
+                            <input type="text" required='required' name="representation" id="representation" placeholder="New Representation..." >
                         </td>
                         <td>
-                        <input type="submit">
+                            <input type="file" id="fileToUpload" name="fileToUpload" accept="image/png, image/jpeg">
+                        </td>
+                        <td>
+                            <input type="submit">
                         </td>
                     </form>
 
-            </tr>
-        </table>
-        <h2> Edit Representation </h2>
+                </tr>
+            </table>
 
-        <table>
-            <tr>
-                <th> Representation </th>
-                <th> Submit </th>
-                <th> Delete</th>
-            </tr>
+<!--            delete users-->
+            <table>
+                <tr>
+                    <th> User ID </th>
+                    <th> Username </th>
+                    <th> Delete</th>
+                </tr>
             <?php
-            $all_representation_result = mysqli_query($con, $all_representation_query);
-            while($row = mysqli_fetch_array($all_representation_result))
+            while($row = mysqli_fetch_assoc($all_users_result))
             {
-                echo "<tr><form action = processes/update_filter.php method = post>";
-                echo "<td><input type=text name = representation value = '" . $row['representation']."'></td>";
-                echo "<input type=hidden name = representation_id value='" .$row['representation_id']. "'>";
-                echo "<td><input type = submit></td>";
-                echo "<td><a href=delete_representation.php?representation_id=" .$row['representation_id']. ">Delete</a></td>";
-                echo "</form></tr>";
+                echo "<tr>";
+                echo "<td>" . $row['user_id'] . "</td>";
+                echo "<td>" . $row['username'] . "</td>";
+                echo "<td><a href=processes/delete.php?user_id=" . $row['user_id'] . "> 
+                        <span class='material-symbols-outlined'>delete</span></a></td>";
             }
-            // add representation and edit flag
             ?>
-            <!--            add representation-->
-            <tr>
-                <form action = 'processes/insert_filter.php' method = post>
-                    <td>
-                        <input type="text" name="representation_id" id="representation_id" placeholder="Representation id..." pattern="[A-Za-z]{3}">
-                    </td>
-                    <td>
-                        <input type="text" name="representation" id="representation" placeholder="New Representation..." >
-                    </td>
-                    <td>
-                        <input type="file" id="flag" name="flag" accept="image/png, image/jpeg">
-                    </td>
-                    <td>
-                        <input type="submit">
-                    </td>
-                </form>
-
-            </tr>
-        </table>
+            </table>
+        </div>
     </div>
 </main>

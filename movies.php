@@ -211,7 +211,13 @@ if(isset($_GET['representation_id'])){
                             <ul class="filter">
                                 <?php
                                     while($all_genre_record = mysqli_fetch_assoc($all_genre_result)) {
-                                        echo "<li>";
+                                        echo "<li";
+                                        if(isset($_GET['genre_id'])){
+                                            if($all_genre_record['genre_id']==$_GET['genre_id']){
+                                                echo " class = 'selected-filter'";
+                                            }
+                                        }
+                                        echo ">";
                                         echo "<a href='movies.php?genre_id=".$all_genre_record['genre_id'] ."'>";
                                         echo $all_genre_record['genre'];
                                         echo "</a>";
@@ -227,8 +233,14 @@ if(isset($_GET['representation_id'])){
                             <ul class="filter">
                                 <?php
                                 while($all_representation_record = mysqli_fetch_assoc($all_representation_result)) {
-                                    echo "<li>";
-                                    echo "<a href='movies.php?representation_id=".$all_representation_record['representation_id'] ."' class = 'tag'>";
+                                    echo "<li";
+                                    if(isset($_GET['representation_id'])){
+                                        if($all_representation_record['representation_id']==$_GET['representation_id']){
+                                            echo " class = 'selected-filter'";
+                                        }
+                                    }
+                                    echo ">";
+                                    echo "<a href='movies.php?representation_id=".$all_representation_record['representation_id'] ."'>";
                                     echo $all_representation_record['representation'];
                                     echo "</a>";
                                     echo "</li>";
@@ -250,7 +262,7 @@ if(isset($_GET['representation_id'])){
 
                         echo '<a href= "movie.php?movie=' . $movies_record['movie_id'] . '">';
                         echo "<div>";
-                        echo "<img class='movie-img' src='images/" . $movies_record['img_file_path'] . "'>";
+                        echo "<img class='movie-img' src='movie_images/" . $movies_record['img_file_path'] . "'>";
                         echo "<br><p>";
                         echo $movies_record['movie_name'];
                         echo "</p><br>";
