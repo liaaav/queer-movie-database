@@ -5,7 +5,7 @@ if(mysqli_connect_errno()){
 else{
     echo "connected to database";
 }
-$movie_name = str_replace("'", "''", $_POST['movie_name']);
+$movie_name = str_replace("'", "&apos;", $_POST['movie_name']);
 $update_movie = "UPDATE movie SET movie_name = '$movie_name', release_year = '$_POST[release_year]', language = '$_POST[language]' WHERE movie_id ='$_POST[movie_id]'";
 
 $delete_existing_genres = "DELETE FROM movie_genre WHERE movie_id='$_POST[movie_id]'";
@@ -74,6 +74,8 @@ else
     echo 'UPDATED';
 }
 
+echo "<br>";
+
 // if there is a file to upload - checks it and uploads it to the server
 if(isset($_FILES['fileToUpload']['name'])){
     $target_dir = "../movie_images/";
@@ -81,7 +83,7 @@ if(isset($_FILES['fileToUpload']['name'])){
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-    // Check if image file is a actual image or fake image
+/*    // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if($check !== false) {
@@ -91,7 +93,7 @@ if(isset($_FILES['fileToUpload']['name'])){
             echo "File is not an image.";
             $uploadOk = 0;
         }
-    }
+    }*/
 
     // Check if file already exists
     if (file_exists($target_file)) {
@@ -99,11 +101,12 @@ if(isset($_FILES['fileToUpload']['name'])){
         $uploadOk = 0;
     }
 
-    /*// Check file size
+    // Check file size
+    print_r($_FILES["fileToUpload"]["size"]);
     if ($_FILES["fileToUpload"]["size"] > 500000) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
-    }*/
+    }
 
     // Allow certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -148,7 +151,7 @@ if(isset($_FILES['fileToUpload']['name'])){
         $all_file_paths[] = $all_file_paths_record['img_file_path'];
     }
 //    target directory
-    $dir = "../movie_images";
+    $dir = "../movie_images/";
 
     //if directory exists - reads its contents
     if (is_dir($dir))
@@ -156,11 +159,10 @@ if(isset($_FILES['fileToUpload']['name'])){
 
         if ($dh = opendir($dir))
         {
-
             while (($file = readdir($dh)) !== false)
             {
                 if(!in_array($file, $all_file_paths)){
-                    unlink($file);
+                    unlink($dir . $file);
                 }
             }
 
@@ -171,5 +173,5 @@ if(isset($_FILES['fileToUpload']['name'])){
     }
 
 
-//header("refresh:2; url = ../movie.php?movie=" . $_POST['movie_id']);
+header("refresh:2; url = ../movie.php?movie=" . $_POST['movie_id']);
 ?>

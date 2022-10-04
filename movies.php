@@ -63,7 +63,7 @@ if(isset($_GET['representation_id'])){
                          ORDER BY $field $order";
         $movies_result = mysqli_query($con, $movies_query);
 
-        $representation_query = "SELECT representation FROM  representation WHERE representation_id = '" . $_GET['representation_id'] . "'";
+        $representation_query = "SELECT * FROM  representation WHERE representation_id = '" . $_GET['representation_id'] . "'";
         $representation_result = mysqli_query($con, $representation_query);
         $representation_record = mysqli_fetch_assoc($representation_result);
     }
@@ -90,13 +90,14 @@ if(isset($_GET['representation_id'])){
                     <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="current-page" href="movies.php">Movies</a>
+                    <a class='current-page' href="movies.php">Movies</a>
                 </li>
                 <li>
                     <a href="about_us.php">About Us</a>
                 </li>
                 <li>
                     <?php
+                    //                    if admin is logged in, given access to admin page
                     if ((isset($_SESSION['logged_in']))) {
                         if ($_SESSION['admin']) {
                             echo "<a href='admin.php'>Admin</a>";
@@ -117,17 +118,17 @@ if(isset($_GET['representation_id'])){
                     </form>
                 </li>
                 <li>
-                    <!--                        <div class="user_profile">-->
-                    <a>
+                    <a href = 'profile.php'>
                         <?php
+                        //                        if logged in, shows username
                         if (isset($_SESSION['username'])){
                             echo $_SESSION['username'];
                         }
                         ?>
                     </a>
-                    <!--                        </div>-->
                 </li>
                 <?php
+                //                if logged in, shows logout
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
                                     <a href='logout.php'>Logout</a>
@@ -136,6 +137,7 @@ if(isset($_GET['representation_id'])){
 
                 ?>
                 <?php
+                //                if not logged in shows create account and log in pages
                 if ((!isset($_SESSION['username']))) {
                     echo "
                         <li>
@@ -159,21 +161,30 @@ if(isset($_GET['representation_id'])){
 <main>
     <div class = "content">
         <div class="main">
-            <h1>
-            <?php
+            <div class='title'>
+                <h1>
+                <?php
 
-            echo "Movies";
-            if(isset($_GET['genre_id'])){
-                echo " - ";
-                echo $genre_record['genre'];
-            }elseif(isset($_GET['representation_id'])){
-                echo " - ";
-                echo $representation_record['representation'];
-            }
-            ?>
-            </h1>
+                echo "Movies";
+                if(isset($_GET['genre_id'])){
+                    echo " - ";
+                    echo $genre_record['genre'];
+                }elseif(isset($_GET['representation_id'])){
+                    echo " - ";
+                    echo $representation_record['representation'];
+                }
+                ?>
+                </h1>
 
+                <?php
+                if(isset($_GET['representation_id'])){
+                    echo $representation_record['description'];
+                }
+                ?>
 
+            </div>
+
+            <br>
 
             <div class="page-grid">
                 <div class="filters">
@@ -262,7 +273,7 @@ if(isset($_GET['representation_id'])){
 
                         echo '<a href= "movie.php?movie=' . $movies_record['movie_id'] . '">';
                         echo "<div>";
-                        echo "<img class='movie-img' src='movie_images/" . $movies_record['img_file_path'] . "'>";
+                        echo "<img class='movie-img' src='movie_images/" . $movies_record['img_file_path'] . "' alt = 'movie poster for " . $movies_record['movie_name'] ."'>";
                         echo "<br><p>";
                         echo $movies_record['movie_name'];
                         echo "</p><br>";

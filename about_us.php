@@ -29,10 +29,11 @@ else{
                     <a href="movies.php">Movies</a>
                 </li>
                 <li>
-                    <a class="current-page" href="about_us.php">About Us</a>
+                    <a class = 'current-page' href="about_us.php">About Us</a>
                 </li>
                 <li>
                     <?php
+                    //                    if admin is logged in, given access to admin page
                     if ((isset($_SESSION['logged_in']))) {
                         if ($_SESSION['admin']) {
                             echo "<a href='admin.php'>Admin</a>";
@@ -53,17 +54,17 @@ else{
                     </form>
                 </li>
                 <li>
-                    <!--                        <div class="user_profile">-->
-                    <a>
+                    <a href = 'profile.php'>
                         <?php
+                        //                        if logged in, shows username
                         if (isset($_SESSION['username'])){
                             echo $_SESSION['username'];
                         }
                         ?>
                     </a>
-                    <!--                        </div>-->
                 </li>
                 <?php
+                //                if logged in, shows logout
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
                                     <a href='logout.php'>Logout</a>
@@ -72,6 +73,7 @@ else{
 
                 ?>
                 <?php
+                //                if not logged in shows create account and log in pages
                 if ((!isset($_SESSION['username']))) {
                     echo "
                         <li>
@@ -92,7 +94,7 @@ else{
 <main>
     <div class = "content">
         <div class="main">
-    <img src="images/lgbtq.jpg" alt="hands holding with rainbow colours">
+    <img src="web_images/lgbtq.jpg" alt="hands holding with rainbow colours">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend,
         erat non iaculis porttitor, arcu ligula gravida orci, vitae semper ipsum
         quam quis tellus. Cras quis rutrum nunc, non efficitur tortor. Morbi sed

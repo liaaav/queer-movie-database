@@ -62,7 +62,7 @@ $count_rating_record = mysqli_fetch_assoc($count_rating_result);
     <meta charset="utf-8">
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
 </head>
 
 <body>
@@ -152,7 +152,7 @@ $count_rating_record = mysqli_fetch_assoc($count_rating_result);
                             <div class='poster'>
                                 <?php
                                 //  display image
-                                echo "<img class='movie-img' src='movie_images/". $this_movie_record['img_file_path'] . "' width = '15%'>";
+                                echo "<img class='movie-img' src='movie_images/". $this_movie_record['img_file_path'] . "' alt = 'movie poster for " . $this_movie_record['movie_name'] ."'>";;
                                 ?>
                             </div>
                             <div class="movie-details">
@@ -195,7 +195,7 @@ $count_rating_record = mysqli_fetch_assoc($count_rating_result);
                                 echo "<div class = movie-representation>";
                                 while ($representation_record = mysqli_fetch_assoc($representation_result)) {
                                     echo "<a href='movies.php?representation_id=" . $representation_record['representation_id'] . "'>";
-                                    echo "<img class='flag-img' src='flag_images/". $representation_record['flag_file_path'] . "'>";
+                                    echo "<img class='flag-img' src='flag_images/". $representation_record['flag_file_path'] . "' alt='". $representation_record['representation'] . " flag'>";
                                     echo "</a>";
                                 }
                                 echo "</div>";
@@ -240,7 +240,7 @@ $count_rating_record = mysqli_fetch_assoc($count_rating_result);
 
                     ?>
                     <form name="rating" method = 'post' action = 'processes/rating.php'>
-                        <input type="radio" id="1" name="rating" value="1">
+                        <input type="radio" id="1" name="rating" value="1" required>
                         <label for="1"> 1 </label>
                         <input type="radio" id="2" name="rating" value="2">
                         <label for="2"> 2 </label>

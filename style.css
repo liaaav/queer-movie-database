@@ -27,7 +27,7 @@ h1{
     color: #25261C;
     font-size: 50px;
     letter-spacing: 8px;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 h2{
@@ -133,23 +133,6 @@ input[type=submit] {
 .home-hero text{
     
 }
-/*
-input[type=text], select, textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    resize: vertical;
-    font-family: 'Open Sans', sans-serif;
-}
-
-
-
-
-
-*/
 
 /*movie grid*/
 
@@ -454,6 +437,28 @@ input[type=submit].submit-button{
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+
+/* users, genre and representation tables*/
+.row {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.row>* {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+
+}
+
+.table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 80%;
+    max-width: 50%;
 }
 
 @media screen and (max-width: 660px) {

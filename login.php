@@ -30,6 +30,7 @@ else{
                 </li>
                 <li>
                     <?php
+                    //                    if admin is logged in, given access to admin page
                     if ((isset($_SESSION['logged_in']))) {
                         if ($_SESSION['admin']) {
                             echo "<a href='admin.php'>Admin</a>";
@@ -50,17 +51,17 @@ else{
                     </form>
                 </li>
                 <li>
-                    <!--                        <div class="user_profile">-->
-                    <a>
+                    <a href = 'profile.php'>
                         <?php
+                        //                        if logged in, shows username
                         if (isset($_SESSION['username'])){
                             echo $_SESSION['username'];
                         }
                         ?>
                     </a>
-                    <!--                        </div>-->
                 </li>
                 <?php
+                //                if logged in, shows logout
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
                                     <a href='logout.php'>Logout</a>
@@ -69,6 +70,7 @@ else{
 
                 ?>
                 <?php
+                //                if not logged in shows create account and log in pages
                 if ((!isset($_SESSION['username']))) {
                     echo "
                         <li>
@@ -87,21 +89,23 @@ else{
 </nav>
 <main>
     <div class = "content">
-    <h2> Login Here </h2>
-    <!-- Login Form -->
-        <?php
-            if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
-                echo "Incorrect username or password";
-        }
-        ?>
-    <form name = 'login_form' method = 'post' action = 'processes/process_login.php'>
-        <label for="username"> Username: </label>
-        <input type="text" name="username"><br>
+        <div class='main'>
+            <h2> Login Here </h2>
+            <!-- Login Form -->
+                <?php
+                    if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
+                        echo "Incorrect username or password";
+                }
+                ?>
+            <form name = 'login_form' method = 'post' action = 'processes/process_login.php'>
+                <label for="username"> Username: </label>
+                <input id = username required type="text" name="username"><br>
 
-        <label for=password"> Password: </label>
-        <input type="password" name="password"><br>
+                <label for=password> Password: </label>
+                <input id = password required type="password" name="password"><br>
 
-        <input type="submit" name="submit" id="submit" value="Log In">
-    </form>
+                <input type="submit" name="submit" id="submit" value="Log In">
+            </form>
+        </div>
     </div>
 </main>

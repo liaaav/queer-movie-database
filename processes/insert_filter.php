@@ -10,13 +10,16 @@ else{
 if(isset($_POST['representation'])){
     $representation = ucwords(strtolower($_POST['representation']));
     $representation_id = strtoupper($_POST['representation_id']);
+    $description = str_replace("'", "&apos;", $_POST['description']);
+
     $flag_file_path = $_FILES['fileToUpload']['name'];
     echo $flag_file_path;
+
 //    check duplicate id
     $check_rep = "SELECT representation FROM representation WHERE representation = '$representation'";
     $check_rep_result = mysqli_query($con, $check_rep);
     if($check_rep_result->num_rows == 0){
-        $insert_representation = "INSERT INTO representation (representation_id, representation, flag_file_path) VALUES ('$representation_id', '$representation','$flag_file_path')";
+        $insert_representation = "INSERT INTO representation (representation_id, representation, flag_file_path, description) VALUES ('$representation_id', '$representation','$flag_file_path','$description')";
         echo $insert_representation;
 //        upload image to server
             $target_dir = "../flag_images/";

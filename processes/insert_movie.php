@@ -9,7 +9,7 @@ $movie_name = $_POST['movie_name'];
 $release_year = $_POST['release_year'];
 $language = $_POST['language'];
 
-$movie_name = str_replace("'", "''", $movie_name);
+$movie_name = str_replace("'", "&apos;", $movie_name);
 $insert_movie = "INSERT INTO movie (movie_name, release_year, language) VALUES ('$movie_name','$release_year','$language')";
 echo $insert_movie;
 if(!mysqli_query($con, $insert_movie))
@@ -66,6 +66,5 @@ while ($all_representation_record = mysqli_fetch_assoc($all_representation_resul
 
 
 
-
-header("refresh:2; url = ../index.php");
+header("refresh:2; url = ../movies.php");
 ?>

@@ -102,7 +102,7 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
                     </form>
                 </li>
                 <li>
-                    <a>
+                    <a href = 'profile.php'>
                         <?php
 //                        if logged in, shows username
                         if (isset($_SESSION['username'])){
@@ -115,7 +115,7 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
 //                if logged in, shows logout
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
-                                    <a class='menu-link' href='logout.php'>Logout</a>
+                                    <a href='logout.php'>Logout</a>
                                 </li>";
                 }
 
@@ -128,7 +128,7 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
                             <a href='create_account.php'>Create Account</a>
                         </li>
                         <li>
-                            <a class='menu-link' href='login.php'>Login</a>
+                            <a href='login.php'>Login</a>
                         </li>";
                 }
                 ?>
@@ -170,7 +170,7 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
                         }else{
                             $checked = false;
                         }
-                        echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= ". $all_genre_record['genre_id'].
+                        echo "<input type='checkbox' id= '". $all_genre_record['genre_id']. "' name= '". $all_genre_record['genre_id'].
                         "' value = '" .$all_genre_record['genre'] . "'";
                         if ($checked){
                             echo " checked";
@@ -189,7 +189,7 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
                 }else{
                     $checked = false;
                 }
-                echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= ". $all_representation_record['representation_id'].
+                echo "<input type='checkbox' id= '". $all_representation_record['representation_id']. "' name= '". $all_representation_record['representation_id'].
                     "' value = '" .$all_representation_record['representation'] . "'";
                 if ($checked){
                     echo " checked";
@@ -200,13 +200,13 @@ while ($representation_record = mysqli_fetch_assoc($representation_result)){
 
 
                     echo "<input type=hidden name = movie_id value='" .$this_movie_record['movie_id']. "'>";
-                    echo "<td><input type = submit></td>";
+                    echo "<input type = submit>";
 
 
                 echo "</form>";
                 echo "<br>";
             //            delete movie
-                        echo "<td><a href=processes/delete.php?movie_id=" .$this_movie_record['movie_id']. ">Delete movie</a></td>";
+                        echo "<a href='processes/delete.php?movie_id=" .$this_movie_record['movie_id']. "'>Delete movie</a>";
             ?>
 
 

@@ -32,13 +32,14 @@ $all_customers_result = mysqli_query($con, $all_customers_query);
                     <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a class="current-page" href="movies.php">Movies</a>
+                    <a href="movies.php">Movies</a>
                 </li>
                 <li>
                     <a href="about_us.php">About Us</a>
                 </li>
                 <li>
                     <?php
+                    //                    if admin is logged in, given access to admin page
                     if ((isset($_SESSION['logged_in']))) {
                         if ($_SESSION['admin']) {
                             echo "<a href='admin.php'>Admin</a>";
@@ -59,17 +60,17 @@ $all_customers_result = mysqli_query($con, $all_customers_query);
                     </form>
                 </li>
                 <li>
-                    <!--                        <div class="user_profile">-->
-                    <a>
+                    <a href = 'profile.php'>
                         <?php
+                        //                        if logged in, shows username
                         if (isset($_SESSION['username'])){
                             echo $_SESSION['username'];
                         }
                         ?>
                     </a>
-                    <!--                        </div>-->
                 </li>
                 <?php
+                //                if logged in, shows logout
                 if ((isset($_SESSION['username']))) {
                     echo "<li>
                                     <a href='logout.php'>Logout</a>
@@ -78,6 +79,7 @@ $all_customers_result = mysqli_query($con, $all_customers_query);
 
                 ?>
                 <?php
+                //                if not logged in shows create account and log in pages
                 if ((!isset($_SESSION['username']))) {
                     echo "
                         <li>

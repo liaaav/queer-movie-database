@@ -1,14 +1,11 @@
 <?php
 session_start();
-    $con = mysqli_connect("localhost", "liav", "swifthelp20", "liav_queer");
-    if(mysqli_connect_errno()){
-        echo "Failed to connect to MySQL:".mysqli_connect_error(); die();}
-    else{
-
-    }
-
-    $all_movie_rec_query = "SELECT movie.*, movie.movie_id FROM movie, movie_rec WHERE movie.movie_id = movie_rec.movie_id";
-    $all_movie_rec_result = mysqli_query($con, $all_movie_rec_query);
+$con = mysqli_connect("localhost", "liav", "swifthelp20", "liav_queer");
+if(mysqli_connect_errno()){
+    echo "Failed to connect to MySQL:".mysqli_connect_error(); die();}
+else{
+    echo "connected to database";
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,13 +16,14 @@ session_start();
     <link rel='stylesheet' type='text/css' href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
+
 <body>
-    <nav>
+<nav>
     <div class = "navbar">
         <div class = "navbar__container">
             <ul class = "navbar__menu navbar__menu--left">
                 <li>
-                    <a class = 'current-page' href="index.php">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
                     <a href="movies.php">Movies</a>
@@ -56,7 +54,7 @@ session_start();
                     </form>
                 </li>
                 <li>
-                    <a href = 'profile.php'>
+                    <a class = 'current-page' href = 'profile.php'>
                         <?php
                         //                        if logged in, shows username
                         if (isset($_SESSION['username'])){
@@ -95,40 +93,14 @@ session_start();
 
 <main>
     <div class = "content">
-        <section class="home-hero">
-            <div class ="two-col">
-
-                <div class = "col 100vh">
-                    <div class = "home-hero__img">
-                        <img src="flag_images/lgbtq_flag.png" alt = "rainbow pride flag">
-                    </div>
-                </div>
-
-                <div class = "col 100vh flex-cc">
-                    <h1>Queer Movies</h1>
-                </div>
-
-            </div>
-        </section>
-        <br>
-        <div class='main'>
-            <h2>Recommended Movies</h2>
-            <div class="rec-grid">
-                <?php
-                while ($all_movie_rec_record = mysqli_fetch_assoc($all_movie_rec_result)) {
-                    echo '<a href= "movie.php?movie=' . $all_movie_rec_record['movie_id'] . '">';
-                    echo "<div>";
-                    echo "<img class='movie-img' src='movie_images/".$all_movie_rec_record['img_file_path']."' alt = 'movie poster for " . $all_movie_rec_record['movie_name'] ."'>";
-                    echo "<br><p>";
-                    echo $all_movie_rec_record['movie_name'];
-                    echo "</p><br>";
-                    echo "</div>";
-                    echo "</a>";
-                }
-                ?>
-            </div>
+        <div class="main">
+            <?php
+            echo "logged in as " . $_SESSION['username'];
+            ?>
+            <br>
+            this would be an epic profile
+            if I could be bothered
         </div>
     </div>
 </main>
 </body>
-</html>

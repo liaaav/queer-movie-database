@@ -16,6 +16,8 @@ if(isset($_GET['movie_id'])){
         echo 'DELETED';
     }
     header('Location: ../movies.php');
+//    makes sure code below doesn't get executed when redirected
+    exit;
 }
 
 if(isset($_GET['review_id'])){
