@@ -152,7 +152,7 @@ $count_rating_record = mysqli_fetch_assoc($count_rating_result);
                             <div class='poster'>
                                 <?php
                                 //  display image
-                                echo "<img class='movie-img' src='movie_images/". $this_movie_record['img_file_path'] . "' alt = 'movie poster for " . $this_movie_record['movie_name'] ."'>";;
+                                echo "<img class='movie-img' src='movie_images/". $this_movie_record['img_file_path'] . "' alt = 'movie poster for " . $this_movie_record['movie_name'] ."'>";
                                 ?>
                             </div>
                             <div class="movie-details">
